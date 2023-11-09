@@ -79,12 +79,13 @@ namespace MossCast
                 streamerGroupBox6,
                 streamerGroupBox7,
                 streamerGroupBox8,
+                streamerGroupBox9,
+                streamerGroupBox10,
+                streamerGroupBox11,
+                streamerGroupBox12,
             };
             setupStreamLinkCheck();
             setupStreamerSources();
-
-
-
 
             ToolStripStatusLabel1.Text = "Version " + GetType().Assembly.GetName().Version.ToString();
             tsmiCombineNamesPronouns.Checked = My.MySettingsProperty.Settings.boolCombinedStreamerPronounFile;

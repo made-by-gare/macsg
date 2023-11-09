@@ -60,13 +60,17 @@ namespace MossCast
             this.streamerGroupBox3 = new MossCast.StreamerGroupBox();
             this.streamerGroupBox2 = new MossCast.StreamerGroupBox();
             this.streamerGroupBox1 = new MossCast.StreamerGroupBox();
+            this.streamerGroupBox12 = new MossCast.StreamerGroupBox();
+            this.streamerGroupBox11 = new MossCast.StreamerGroupBox();
+            this.streamerGroupBox10 = new MossCast.StreamerGroupBox();
+            this.streamerGroupBox9 = new MossCast.StreamerGroupBox();
             this.menuStrip1.SuspendLayout();
             this.StatusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnGenAll
             // 
-            this.btnGenAll.Location = new System.Drawing.Point(526, 75);
+            this.btnGenAll.Location = new System.Drawing.Point(1040, 76);
             this.btnGenAll.Name = "btnGenAll";
             this.btnGenAll.Size = new System.Drawing.Size(101, 29);
             this.btnGenAll.TabIndex = 17;
@@ -76,7 +80,7 @@ namespace MossCast
             // 
             // btnKillVLC
             // 
-            this.btnKillVLC.Location = new System.Drawing.Point(526, 109);
+            this.btnKillVLC.Location = new System.Drawing.Point(1040, 110);
             this.btnKillVLC.Name = "btnKillVLC";
             this.btnKillVLC.Size = new System.Drawing.Size(101, 29);
             this.btnKillVLC.TabIndex = 16;
@@ -86,7 +90,7 @@ namespace MossCast
             // 
             // btnMoveResize
             // 
-            this.btnMoveResize.Location = new System.Drawing.Point(526, 40);
+            this.btnMoveResize.Location = new System.Drawing.Point(1040, 41);
             this.btnMoveResize.Name = "btnMoveResize";
             this.btnMoveResize.Size = new System.Drawing.Size(101, 29);
             this.btnMoveResize.TabIndex = 15;
@@ -177,7 +181,7 @@ namespace MossCast
             // 
             this.ProgressBar1.Location = new System.Drawing.Point(14, 22);
             this.ProgressBar1.Name = "ProgressBar1";
-            this.ProgressBar1.Size = new System.Drawing.Size(612, 8);
+            this.ProgressBar1.Size = new System.Drawing.Size(1127, 8);
             this.ProgressBar1.TabIndex = 19;
             this.ProgressBar1.Visible = false;
             // 
@@ -198,16 +202,16 @@ namespace MossCast
             this.StatusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusLabel1,
             this.ToolStripStatusLabel1});
-            this.StatusStrip1.Location = new System.Drawing.Point(0, 609);
+            this.StatusStrip1.Location = new System.Drawing.Point(0, 464);
             this.StatusStrip1.Name = "StatusStrip1";
             this.StatusStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.StatusStrip1.Size = new System.Drawing.Size(639, 22);
+            this.StatusStrip1.Size = new System.Drawing.Size(1154, 22);
             this.StatusStrip1.TabIndex = 21;
             // 
             // streamerGroupBox8
             // 
             this.streamerGroupBox8.Header = "Stream 8";
-            this.streamerGroupBox8.Location = new System.Drawing.Point(269, 461);
+            this.streamerGroupBox8.Location = new System.Drawing.Point(781, 177);
             this.streamerGroupBox8.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.streamerGroupBox8.Name = "streamerGroupBox8";
             this.streamerGroupBox8.Size = new System.Drawing.Size(251, 142);
@@ -216,7 +220,7 @@ namespace MossCast
             // streamerGroupBox7
             // 
             this.streamerGroupBox7.Header = "Stream 7";
-            this.streamerGroupBox7.Location = new System.Drawing.Point(12, 461);
+            this.streamerGroupBox7.Location = new System.Drawing.Point(524, 177);
             this.streamerGroupBox7.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.streamerGroupBox7.Name = "streamerGroupBox7";
             this.streamerGroupBox7.Size = new System.Drawing.Size(251, 142);
@@ -225,7 +229,7 @@ namespace MossCast
             // streamerGroupBox6
             // 
             this.streamerGroupBox6.Header = "Stream 6";
-            this.streamerGroupBox6.Location = new System.Drawing.Point(269, 319);
+            this.streamerGroupBox6.Location = new System.Drawing.Point(269, 177);
             this.streamerGroupBox6.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.streamerGroupBox6.Name = "streamerGroupBox6";
             this.streamerGroupBox6.Size = new System.Drawing.Size(251, 142);
@@ -234,7 +238,7 @@ namespace MossCast
             // streamerGroupBox5
             // 
             this.streamerGroupBox5.Header = "Stream 5";
-            this.streamerGroupBox5.Location = new System.Drawing.Point(12, 319);
+            this.streamerGroupBox5.Location = new System.Drawing.Point(12, 177);
             this.streamerGroupBox5.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.streamerGroupBox5.Name = "streamerGroupBox5";
             this.streamerGroupBox5.Size = new System.Drawing.Size(251, 142);
@@ -243,7 +247,7 @@ namespace MossCast
             // streamerGroupBox4
             // 
             this.streamerGroupBox4.Header = "Stream 4";
-            this.streamerGroupBox4.Location = new System.Drawing.Point(269, 174);
+            this.streamerGroupBox4.Location = new System.Drawing.Point(783, 33);
             this.streamerGroupBox4.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.streamerGroupBox4.Name = "streamerGroupBox4";
             this.streamerGroupBox4.Size = new System.Drawing.Size(251, 142);
@@ -252,7 +256,7 @@ namespace MossCast
             // streamerGroupBox3
             // 
             this.streamerGroupBox3.Header = "Stream 3";
-            this.streamerGroupBox3.Location = new System.Drawing.Point(12, 174);
+            this.streamerGroupBox3.Location = new System.Drawing.Point(526, 33);
             this.streamerGroupBox3.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.streamerGroupBox3.Name = "streamerGroupBox3";
             this.streamerGroupBox3.Size = new System.Drawing.Size(251, 142);
@@ -276,11 +280,51 @@ namespace MossCast
             this.streamerGroupBox1.Size = new System.Drawing.Size(251, 142);
             this.streamerGroupBox1.TabIndex = 22;
             // 
+            // streamerGroupBox12
+            // 
+            this.streamerGroupBox12.Header = "Stream 12";
+            this.streamerGroupBox12.Location = new System.Drawing.Point(781, 319);
+            this.streamerGroupBox12.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
+            this.streamerGroupBox12.Name = "streamerGroupBox12";
+            this.streamerGroupBox12.Size = new System.Drawing.Size(251, 142);
+            this.streamerGroupBox12.TabIndex = 33;
+            // 
+            // streamerGroupBox11
+            // 
+            this.streamerGroupBox11.Header = "Stream 11";
+            this.streamerGroupBox11.Location = new System.Drawing.Point(524, 319);
+            this.streamerGroupBox11.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
+            this.streamerGroupBox11.Name = "streamerGroupBox11";
+            this.streamerGroupBox11.Size = new System.Drawing.Size(251, 142);
+            this.streamerGroupBox11.TabIndex = 32;
+            // 
+            // streamerGroupBox10
+            // 
+            this.streamerGroupBox10.Header = "Stream 10";
+            this.streamerGroupBox10.Location = new System.Drawing.Point(269, 319);
+            this.streamerGroupBox10.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.streamerGroupBox10.Name = "streamerGroupBox10";
+            this.streamerGroupBox10.Size = new System.Drawing.Size(251, 142);
+            this.streamerGroupBox10.TabIndex = 31;
+            // 
+            // streamerGroupBox9
+            // 
+            this.streamerGroupBox9.Header = "Stream 9";
+            this.streamerGroupBox9.Location = new System.Drawing.Point(12, 319);
+            this.streamerGroupBox9.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.streamerGroupBox9.Name = "streamerGroupBox9";
+            this.streamerGroupBox9.Size = new System.Drawing.Size(251, 142);
+            this.streamerGroupBox9.TabIndex = 30;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(639, 631);
+            this.ClientSize = new System.Drawing.Size(1154, 486);
+            this.Controls.Add(this.streamerGroupBox12);
+            this.Controls.Add(this.streamerGroupBox11);
+            this.Controls.Add(this.streamerGroupBox10);
+            this.Controls.Add(this.streamerGroupBox9);
             this.Controls.Add(this.streamerGroupBox8);
             this.Controls.Add(this.streamerGroupBox7);
             this.Controls.Add(this.streamerGroupBox6);
@@ -296,8 +340,8 @@ namespace MossCast
             this.Controls.Add(this.btnKillVLC);
             this.Controls.Add(this.btnMoveResize);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximumSize = new System.Drawing.Size(655, 670);
-            this.MinimumSize = new System.Drawing.Size(655, 670);
+            this.MaximumSize = new System.Drawing.Size(1170, 525);
+            this.MinimumSize = new System.Drawing.Size(1170, 525);
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "MossCast";
@@ -335,5 +379,9 @@ namespace MossCast
         private StreamerGroupBox streamerGroupBox7;
         private StreamerGroupBox streamerGroupBox6;
         private StreamerGroupBox streamerGroupBox5;
+        private StreamerGroupBox streamerGroupBox12;
+        private StreamerGroupBox streamerGroupBox11;
+        private StreamerGroupBox streamerGroupBox10;
+        private StreamerGroupBox streamerGroupBox9;
     }
 }
