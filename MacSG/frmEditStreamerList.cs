@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace MacSG
@@ -9,8 +10,6 @@ namespace MacSG
 
     public partial class frmEditStreamerList
     {
-        private List<string> lstStreamerList = new List<string>();
-
         public frmEditStreamerList()
         {
             InitializeComponent();
@@ -31,8 +30,8 @@ namespace MacSG
 
                 while (line is not null)
                 {
-                    lstStreamerList.Add(line);
-                    dgdStreamerList.Rows.Add(line);
+                    string[] columns = line.Split(',').Select(x => x.Trim()).ToArray();
+                    dgdStreamerList.Rows.Add(columns);
                     line = srReader.ReadLine();
                 }
             }
@@ -42,23 +41,29 @@ namespace MacSG
         private void Form2_FormClosing(object sender, EventArgs e)
         {
 
-            dgdStreamerList.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
+            List<string> output = new List<string>();
+            int columnCount = dgdStreamerList.Columns.Count;
 
-            for (int i = 0, loopTo = dgdStreamerList.Rows.Count - 2; i <= loopTo; i++)
+            for (int i = 1; (i - 1) < dgdStreamerList.Rows.Count; i++)
             {
-                if (string.IsNullOrEmpty(dgdStreamerList.Rows[i].ToString()))
+
+                List<string> cells = new List<string>();
+
+                for (int j = 0; j < columnCount; j++)
                 {
-                    dgdStreamerList.Rows.Remove(dgdStreamerList.Rows[i]);
+                    cells.Add(dgdStreamerList.Rows[i - 1].Cells[j].Value?.ToString().Trim());
                 }
+
+                if (cells.Count() < 1 || string.IsNullOrEmpty(cells[0]))
+                {
+                    continue;
+                }
+
+                output.Add(String.Join(", ", cells.ToArray()));
             }
 
-            dgdStreamerList.SelectAll();
-
-            File.WriteAllText(My.MySettingsProperty.Settings.strPathToStreamerFile, dgdStreamerList.GetClipboardContent().GetText().TrimEnd());
-            dgdStreamerList.ClearSelection();
-
-            My.MyProject.Forms.frmMain.setupAutocompleteSources();
-
+            File.WriteAllText(My.MySettingsProperty.Settings.strPathToStreamerFile, String.Join("\n", output).TrimEnd());
+            My.MyProject.Forms.frmMain.setupStreamerSources();
         }
 
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
@@ -19,13 +20,10 @@ namespace MacSG
 
     public partial class frmMain
     {
-        private AutoCompleteStringCollection strColAutoCompleteList = new AutoCompleteStringCollection();
 
-        private TextBox[] txtArray;
-        private TextBox[] pronounsArray;
-        private JCS.ToggleSwitch[] switchArray;
-        private TrackBar[] trkbrArray;
-        private Button[] btnArray;
+        public StreamerGroupBox[] streamerGroupBoxes;
+        public List<StreamerInfo> streamerInfos;
+        public List<string> streamers;
 
         private string appdataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\macsg";
 
@@ -64,31 +62,25 @@ namespace MacSG
             int y = Screen.PrimaryScreen.WorkingArea.Height - Height;
             Location = new Point(x, y);
 
+
+            streamerGroupBoxes = new[] {
+                streamerGroupBox1,
+                streamerGroupBox2,
+                streamerGroupBox3,
+                streamerGroupBox4,
+                streamerGroupBox5,
+                streamerGroupBox6,
+                streamerGroupBox7,
+                streamerGroupBox8,
+            };
             setupLivestreamerCheck();
+            setupStreamerSources();
 
-            setupAutocompleteSources();
-            ControlArrayItems();
-
-            string[] args = Environment.GetCommandLineArgs();
-            if (args.Length > 1)
-            {
-                args[0] = args[1];
-                cliStartup(args: args);
-            }
 
             ToolStripStatusLabel1.Text = "Version " + GetType().Assembly.GetName().Version.ToString();
-
             tsmiCombineNamesPronouns.Checked = My.MySettingsProperty.Settings.boolCombinedStreamerPronounFile;
-
         }
 
-        public void ControlArrayItems()
-        {
-            txtArray = new[] { txtStream1, txtStream2, txtStream3, txtStream4 };
-            pronounsArray = new[] { txtPronouns1, txtPronouns2, txtPronouns3, txtPronouns4 };
-            trkbrArray = new[] { trkbrStream1, trkbrStream2, trkbrStream3, trkbrStream4 };
-            btnArray = new[] { btnStream1Gen, btnStream2Gen, btnStream3Gen, btnStream4Gen };
-        }
 
         // Check that livestreamer is installed in the Program Files (x86) or Program Files folder
         public void setupLivestreamerCheck()
@@ -155,7 +147,6 @@ namespace MacSG
                 Process.Start(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\MacSG\streamlink-1.1.1.exe");
                 Close();
             }
-
             else
             {
                 MessageBox.Show("There was an error downloading Streamlink.  Please try running the application as an Administrator and try again.");
@@ -164,20 +155,36 @@ namespace MacSG
         }
 
         // Defines autocomplete sources for all textboxes
-        public void setupAutocompleteSources()
+        public void setupStreamerSources()
         {
 
             using (var reader = new StreamReader(My.MySettingsProperty.Settings.strPathToStreamerFile))
             {
-                strColAutoCompleteList.Clear();
+                streamers = new List<string>();
+                streamerInfos = new List<StreamerInfo>();
                 while (!reader.EndOfStream)
-                    strColAutoCompleteList.Add(reader.ReadLine());
-            }
+                {
+                    List<string> parts = reader.ReadLine().Split(',').Select(x => x.Trim()).ToList();
+                    if (parts.Count() < 1 || string.IsNullOrEmpty(parts[0]))
+                    {
+                        continue;
+                    }
+                    streamers.Add(parts[0]);
+                    streamerInfos.Add(
+                        new StreamerInfo(
+                            parts[0],
+                            parts.ElementAtOrDefault(1),
+                            parts.ElementAtOrDefault(2)
+                        )
+                    );
+                }
 
-            txtStream1.AutoCompleteCustomSource = strColAutoCompleteList;
-            txtStream2.AutoCompleteCustomSource = strColAutoCompleteList;
-            txtStream3.AutoCompleteCustomSource = strColAutoCompleteList;
-            txtStream4.AutoCompleteCustomSource = strColAutoCompleteList;
+                foreach (StreamerGroupBox streamerGroupBox in streamerGroupBoxes)
+                {
+                    streamerGroupBox.UpdateDataSource(streamers);
+                }
+
+            }
 
         }
 
@@ -252,17 +259,13 @@ namespace MacSG
         private void btnGenAll_Click(object sender, EventArgs e)
         {
 
-            btnStream1Gen.PerformClick();
-            btnStream2Gen.PerformClick();
-            btnStream3Gen.PerformClick();
-            btnStream4Gen.PerformClick();
+            // btnStream1Gen.PerformClick();
 
             if (!string.IsNullOrEmpty(My.MySettingsProperty.Settings.strWindowSize))
             {
                 btnMoveResize.PerformClick();
             }
         }
-
 
 
         // Select file to use as autocomplete source
@@ -279,13 +282,7 @@ namespace MacSG
             if (fd.ShowDialog() == DialogResult.OK)
             {
                 My.MySettingsProperty.Settings.strPathToStreamerFile = fd.FileName;
-
-                frmMain_Load(this, e);
-
-                txtStream1.Text = "";
-                txtStream2.Text = "";
-                txtStream3.Text = "";
-                txtStream4.Text = "";
+                setupStreamerSources();
             }
         }
 
@@ -309,313 +306,12 @@ namespace MacSG
             My.MySettingsProperty.Settings.boolCombinedStreamerPronounFile = tsmiCombineNamesPronouns.Checked;
         }
 
-
-        // Unattached subs
-        public void genStream(string streamer, string quality, string source, string windowTitle, string configFile, string racerNumber)
-        {
-            string runningProcess = "/c title " + windowTitle + " & " + source + @"-a "" --config %AppData%\MacSG\vlcrc --width 877 --height 518 -"" " + " --title " + racerNumber + " --hls-live-edge 1 twitch.tv/" + streamer + quality;
-            var strLivestreamerProcess = new ProcessStartInfo("cmd.exe", runningProcess);
-
-            strLivestreamerProcess.WindowStyle = ProcessWindowStyle.Hidden;
-            Process.Start(strLivestreamerProcess);
-
-        }
-
-        public void writeNameToFile(string streamer, string file)
-        {
-
-            string strPathtoName = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\MacSG\streamer" + file + ".txt";
-            StreamWriter swstreamer;
-            swstreamer = My.MyProject.Computer.FileSystem.OpenTextFileWriter(strPathtoName, false);
-            swstreamer.WriteLine(streamer);
-            swstreamer.Close();
-
-        }
-        public void writePronounsToFile(string pronouns, string file)
-        {
-
-            string strPathtoName = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\MacSG\streamer-pronouns" + file + ".txt";
-            StreamWriter swstreamer;
-            swstreamer = My.MyProject.Computer.FileSystem.OpenTextFileWriter(strPathtoName, false);
-            swstreamer.WriteLine(pronouns);
-            swstreamer.Close();
-
-        }
-
-        public void writeNameAndPronounsToFile(string streamer, string pronouns, string file)
-        {
-
-            string strPathtoName = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\MacSG\streamer" + file + ".txt";
-
-
-            StreamWriter swstreamer;
-            swstreamer = My.MyProject.Computer.FileSystem.OpenTextFileWriter(strPathtoName, false);
-            if (!string.IsNullOrEmpty(pronouns))
-            {
-                swstreamer.WriteLine(streamer + " (" + pronouns + ")");
-            }
-            else
-            {
-                swstreamer.WriteLine(streamer);
-            }
-            swstreamer.Close();
-
-        }
-
-        public void writeNameToAutocomplete(string streamer)
-        {
-
-            var streamers = File.ReadLines(My.MySettingsProperty.Settings.strPathToStreamerFile);
-
-            if (!streamers.Contains(streamer.ToLower()))
-            {
-                using (var w = new StreamWriter(My.MySettingsProperty.Settings.strPathToStreamerFile, append: true))
-                {
-                    w.WriteLine(streamer.ToLower());
-                }
-            }
-
-            setupAutocompleteSources();
-
-        }
-
-        // Write udStream control values to text files
-        public void updControls_Changed(object sender, EventArgs e)
-        {
-
-            string updIndex = ((Control)sender).Name.Remove(0, 9);
-
-            using (var swScore = new StreamWriter(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\MacSG\score" + updIndex + ".txt"))
-            {
-                swScore.Write(((NumericUpDown)sender).Value);
-            }
-
-        }
-
         // Handles CLI startup
         public void cliStartup(string[] args)
         {
-
             btnKillVLC.PerformClick();
-
-            if (args.Length > 0)
-            {
-
-                string[] splitArgs = args[0].Split(new char[] { ',' });
-                splitArgs[0] = splitArgs[0].Replace("macsg:", "");
-
-                // DO NOT SUBMIT rework this completely?
-                if (splitArgs.Length > 4)
-                {
-                    Array.Resize(ref splitArgs, 4);
-                }
-
-                for (int i = 0, loopTo = splitArgs.Length - 1; i <= loopTo; i++)
-                {
-                    if (!string.IsNullOrEmpty(splitArgs[i]))
-                    {
-                        string[] splitRacer = splitArgs[i].Split(new char[] { ';' });
-                        if (splitRacer.Length == 2)
-                        {
-                            pronounsArray[i].Text = splitRacer[1];
-                        }
-                        else if (splitRacer.Length != 1)
-                        {
-                            Interaction.MsgBox("Invalid command line arguments, exiting...");
-                            Application.Exit();
-                            return;
-                        }
-                        txtArray[i].Text = splitRacer[0];
-                        btnArray[i].PerformClick();
-                    }
-                }
-            }
         }
 
-
-        // Generate streams
-        public void streamButton_Clicked(object sender, EventArgs e)
-        {
-
-            int ctrlIndex = int.Parse(Regex.Replace(((Button)sender).Name, "[^1-4]", ""));
-
-            // Dim openWindow As Boolean
-            string strWindowTitle = "";
-            string vlcWindowTitle = "";
-
-            switch (ctrlIndex)
-            {
-                case 1:
-                    {
-                        strWindowTitle = "FirstCMD";
-                        vlcWindowTitle = "First";
-                        break;
-                    }
-                case 2:
-                    {
-                        strWindowTitle = "SecondCMD";
-                        vlcWindowTitle = "Second";
-                        break;
-                    }
-                case 3:
-                    {
-                        strWindowTitle = "ThirdCMD";
-                        vlcWindowTitle = "Third";
-                        break;
-                    }
-                case 4:
-                    {
-                        strWindowTitle = "FourthCMD";
-                        vlcWindowTitle = "Fourth";
-                        break;
-                    }
-            }
-
-            if (processChecker(sender: btnArray[ctrlIndex - 1], ctrlIndex: ctrlIndex) == false)
-            {
-                if (!string.IsNullOrEmpty(txtArray[ctrlIndex - 1].Text))
-                {
-                    string strSource = "";
-                    string strQuality = "";
-
-                    switch (trkbrArray[ctrlIndex - 1].Value)
-                    {
-                        case 1:
-                            {
-                                strQuality = " low ";
-                                break;
-                            }
-                        case 2:
-                            {
-                                strQuality = " medium ";
-                                break;
-                            }
-                        case 3:
-                            {
-                                strQuality = " high ";
-                                break;
-                            }
-                        case 4:
-                            {
-                                strQuality = " best ";
-                                break;
-                            }
-                    }
-                    strSource = "streamlink ";
-
-                    genStream(streamer: txtArray[ctrlIndex - 1].Text.ToLower(), quality: strQuality, source: strSource, windowTitle: strWindowTitle, configFile: ctrlIndex.ToString(), racerNumber: vlcWindowTitle);
-                    writeNameToAutocomplete(streamer: txtArray[ctrlIndex - 1].Text.ToLower());
-                    string pronouns = pronounsArray[ctrlIndex - 1].Text;
-
-                    if (!string.IsNullOrEmpty(pronouns))
-                    {
-                        writePronounsToFile(pronouns: pronouns, file: ctrlIndex.ToString());
-                    }
-                    else
-                    {
-                        writePronounsToFile(pronouns: "", file: ctrlIndex.ToString());
-                    }
-
-
-                    if (My.MySettingsProperty.Settings.boolCombinedStreamerPronounFile)
-                    {
-                        writeNameAndPronounsToFile(streamer: txtArray[ctrlIndex - 1].Text, pronouns: pronouns, file: ctrlIndex.ToString());
-                    }
-                    else
-                    {
-                        writeNameToFile(streamer: txtArray[ctrlIndex - 1].Text, file: ctrlIndex.ToString());
-                    }
-
-                }
-            }
-        }
-
-        private void InstallMacsgHandlerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-            var identity = WindowsIdentity.GetCurrent();
-            var principal = new WindowsPrincipal(identity);
-            bool isElevated = principal.IsInRole(WindowsBuiltInRole.Administrator);
-
-            if (isElevated == true)
-            {
-
-                var regMacSG = Registry.ClassesRoot.CreateSubKey("macsg");
-                regMacSG.SetValue("", "URL:MacSG Protocol");
-                regMacSG.SetValue("URL Protocol", "");
-
-                var regDefaultIcon = regMacSG.CreateSubKey("DefaultIcon");
-                regDefaultIcon.SetValue("", Path.GetFileName(Application.ExecutablePath));
-
-                var regShell = regMacSG.CreateSubKey("shell");
-                var regOpen = regShell.CreateSubKey("open");
-                var regCommand = regOpen.CreateSubKey("Command");
-                regCommand.SetValue("", Application.ExecutablePath + " %1");
-
-                Interaction.MsgBox("To finish enabling the protocol, you must reboot your PC.");
-            }
-
-            else
-            {
-                Interaction.MsgBox("MacSG must be running with Administrator privileges to install the custom protocol.  Please relaunch MacSG as an Administrator.");
-            }
-
-        }
-
-
-        public bool processChecker(Button sender, int ctrlIndex)
-        {
-
-            Process[] procProcesses = Process.GetProcesses();
-            var openWindow = default(bool);
-            string strWindowTitle = "";
-
-            switch (ctrlIndex)
-            {
-                case 1:
-                    {
-                        strWindowTitle = "First";
-                        break;
-                    }
-                case 2:
-                    {
-                        strWindowTitle = "Second";
-                        break;
-                    }
-                case 3:
-                    {
-                        strWindowTitle = "Third";
-                        break;
-                    }
-                case 4:
-                    {
-                        strWindowTitle = "Fourth";
-                        break;
-                    }
-            }
-
-            foreach (Process p in procProcesses)
-            {
-                if (p.MainWindowTitle.Contains(strWindowTitle))
-                {
-                    openWindow = true;
-                    break;
-                }
-                else
-                {
-                    openWindow = false;
-                }
-
-            }
-
-            return openWindow;
-
-        }
-
-        private void tsmiCondorSchedule_Click(object sender, EventArgs e)
-        {
-            Process.Start("https://condor.live/schedule");
-        }
 
         private void tsmiOpenAppData_Click(object sender, EventArgs e)
         {

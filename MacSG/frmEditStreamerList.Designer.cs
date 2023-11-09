@@ -35,48 +35,68 @@ namespace MacSG
         [DebuggerStepThrough()]
         private void InitializeComponent()
         {
-            var resources = new System.ComponentModel.ComponentResourceManager(typeof(frmEditStreamerList));
-            dgdStreamerList = new DataGridView();
-            lblStreamerName = new DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)dgdStreamerList).BeginInit();
-            SuspendLayout();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmEditStreamerList));
+            this.dgdStreamerList = new System.Windows.Forms.DataGridView();
+            this.lblStreamerName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DisplayNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PronounsColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.dgdStreamerList)).BeginInit();
+            this.SuspendLayout();
             // 
             // dgdStreamerList
             // 
-            dgdStreamerList.AllowUserToResizeRows = false;
-            dgdStreamerList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dgdStreamerList.Columns.AddRange(new DataGridViewColumn[] { lblStreamerName });
-            dgdStreamerList.Location = new Point(13, 13);
-            dgdStreamerList.MaximumSize = new Size(328, 212);
-            dgdStreamerList.MinimumSize = new Size(328, 212);
-            dgdStreamerList.Name = "dgdStreamerList";
-            dgdStreamerList.Size = new Size(328, 212);
-            dgdStreamerList.TabIndex = 0;
+            this.dgdStreamerList.AllowUserToResizeRows = false;
+            this.dgdStreamerList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgdStreamerList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgdStreamerList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgdStreamerList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.lblStreamerName,
+            this.DisplayNameColumn,
+            this.PronounsColumn});
+            this.dgdStreamerList.Location = new System.Drawing.Point(13, 13);
+            this.dgdStreamerList.Name = "dgdStreamerList";
+            this.dgdStreamerList.Size = new System.Drawing.Size(550, 413);
+            this.dgdStreamerList.TabIndex = 0;
             // 
             // lblStreamerName
             // 
-            lblStreamerName.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            lblStreamerName.HeaderText = "Streamer name";
-            lblStreamerName.Name = "lblStreamerName";
-            lblStreamerName.Resizable = DataGridViewTriState.False;
+            this.lblStreamerName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.lblStreamerName.HeaderText = "Streamer name";
+            this.lblStreamerName.Name = "lblStreamerName";
             // 
-            // frmEditRacerList
+            // DisplayNameColumn
             // 
-            AutoScaleDimensions = new SizeF(6.0f, 13.0f);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(353, 236);
-            Controls.Add(dgdStreamerList);
-            Icon = (Icon)resources.GetObject("$this.Icon");
-            Name = "frmEditRacerList";
-            Text = "Edit streamer file";
-            ((System.ComponentModel.ISupportInitialize)dgdStreamerList).EndInit();
-            Load += new EventHandler(Form2_Load);
-            FormClosing += new FormClosingEventHandler(Form2_FormClosing);
-            ResumeLayout(false);
+            this.DisplayNameColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.DisplayNameColumn.HeaderText = "Display Name";
+            this.DisplayNameColumn.Name = "DisplayNameColumn";
+            // 
+            // PronounsColumn
+            // 
+            this.PronounsColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.PronounsColumn.HeaderText = "Pronouns";
+            this.PronounsColumn.Name = "PronounsColumn";
+            // 
+            // frmEditStreamerList
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(575, 438);
+            this.Controls.Add(this.dgdStreamerList);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "frmEditStreamerList";
+            this.Text = "Edit streamer file";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form2_FormClosing);
+            this.Load += new System.EventHandler(this.Form2_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dgdStreamerList)).EndInit();
+            this.ResumeLayout(false);
 
         }
 
         internal DataGridView dgdStreamerList;
-        internal DataGridViewTextBoxColumn lblStreamerName;
+        private DataGridViewTextBoxColumn lblStreamerName;
+        private DataGridViewTextBoxColumn DisplayNameColumn;
+        private DataGridViewTextBoxColumn PronounsColumn;
     }
 }
