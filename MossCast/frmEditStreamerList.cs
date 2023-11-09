@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace MacSG
+namespace MossCast
 {
 
     public partial class frmEditStreamerList

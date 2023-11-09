@@ -15,7 +15,7 @@ using Microsoft.VisualBasic.ApplicationServices;
 using Microsoft.VisualBasic.CompilerServices;
 using Microsoft.Win32;
 
-namespace MacSG
+namespace MossCast
 {
 
     public partial class frmMain
@@ -25,7 +25,7 @@ namespace MacSG
         public List<StreamerInfo> streamerInfos;
         public List<string> streamers;
 
-        private string appdataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\macsg";
+        private string appdataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\MossCast";
 
         public event StartupNextInstanceEventHandler StartupNextInstance;
 
@@ -62,6 +62,16 @@ namespace MacSG
             int y = Screen.PrimaryScreen.WorkingArea.Height - Height;
             Location = new Point(x, y);
 
+            if (!Directory.Exists(appdataFolder))
+            {
+                Directory.CreateDirectory(appdataFolder);
+            }
+
+            if (!File.Exists(My.MySettingsProperty.Settings.strPathToStreamerFile))
+            {
+                File.Create(My.MySettingsProperty.Settings.strPathToStreamerFile).Close();
+            }
+
 
             streamerGroupBoxes = new[] {
                 streamerGroupBox1,
@@ -75,6 +85,8 @@ namespace MacSG
             };
             setupLivestreamerCheck();
             setupStreamerSources();
+
+
 
 
             ToolStripStatusLabel1.Text = "Version " + GetType().Assembly.GetName().Version.ToString();
@@ -107,7 +119,7 @@ namespace MacSG
                     client.DownloadProgressChanged += ShowDownloadProgress;
                     client.DownloadFileCompleted += DownloadFileCompleted;
 
-                    client.DownloadFileAsync(new Uri("https://github.com/streamlink/windows-builds/releases/download/4.3.0-1/streamlink-4.3.0-1-py310-x86.exe"), Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\MacSG\streamlink-1.1.1.exe");
+                    client.DownloadFileAsync(new Uri("https://github.com/streamlink/windows-builds/releases/download/4.3.0-1/streamlink-4.3.0-1-py310-x86.exe"), Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\MossCast\streamlink-1.1.1.exe");
                 }
                 else if (boolStreamlink == (int)DialogResult.No)
                 {
@@ -144,7 +156,7 @@ namespace MacSG
             if (!e.Cancelled && e.Error is null)
             {
                 ProgressBar1.Visible = false;
-                Process.Start(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\MacSG\streamlink-1.1.1.exe");
+                Process.Start(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\MossCast\streamlink-1.1.1.exe");
                 Close();
             }
             else
@@ -275,7 +287,7 @@ namespace MacSG
             var fd = new OpenFileDialog();
 
             fd.Title = "Select a file...";
-            fd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\MacSG";
+            fd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\MossCast";
             fd.Filter = "Config files (*.conf)|*.conf";
             fd.RestoreDirectory = true;
 
@@ -315,7 +327,7 @@ namespace MacSG
 
         private void tsmiOpenAppData_Click(object sender, EventArgs e)
         {
-            Process.Start(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\MacSG");
+            Process.Start(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\MossCast");
         }
 
         private void tsmiEditStreamlinkConfig_Click(object sender, EventArgs e)
@@ -334,34 +346,5 @@ namespace MacSG
             }
         }
 
-        private void CheckForUpdatesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            string githubApiUrl = "https://api.github.com/repos/necrommunity/macsg/releases/latest";
-            string githubHeaders = "Accept:  application/vnd.github+json";
-            var webClient = new WebClient();
-            webClient.Headers.Add(githubHeaders);
-
-            string githubResponse;
-
-            try
-            {
-                githubResponse = webClient.DownloadString(new Uri(githubApiUrl));
-            }
-            catch (WebException ex)
-            {
-                if (ex.Status == WebExceptionStatus.ProtocolError && ex.Response is not null)
-                {
-                    HttpWebResponse response = (HttpWebResponse)ex.Response;
-                    if (response.StatusCode == HttpStatusCode.NotFound)
-                    {
-                        Interaction.MsgBox("Error checking for latest MacSG releases");
-                    }
-                }
-                throw;
-            }
-
-            Interaction.MsgBox(githubResponse);
-
-        }
     }
 }

@@ -15,7 +15,7 @@ using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.CompilerServices;
 
 
-namespace MacSG.My
+namespace MossCast.My
 {
 
     [CompilerGenerated()]
@@ -151,7 +151,7 @@ namespace MacSG.My
     }
 }
 
-namespace MacSG.My
+namespace MossCast.My
 {
 
     [HideModuleName()]

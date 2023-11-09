@@ -10,7 +10,7 @@ using Microsoft.VisualBasic;
 // See the LICENSE file in the project root for more information.
 
 // See Compiler::LoadXmlSolutionExtension
-namespace MacSG.My
+namespace MossCast.My
 {
     [Embedded()]
     [DebuggerNonUserCode()]

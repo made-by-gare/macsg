@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.33214.272
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MacSG", "MacSG\MacSG.csproj", "{7080C8C0-A507-02E8-0A18-DB8221090B7A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MossCast", "MossCast\MossCast.csproj", "{7080C8C0-A507-02E8-0A18-DB8221090B7A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

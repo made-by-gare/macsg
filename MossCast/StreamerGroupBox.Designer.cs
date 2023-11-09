@@ -1,5 +1,5 @@
 ﻿
-namespace MacSG
+namespace MossCast
 {
     partial class StreamerGroupBox
     {

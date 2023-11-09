@@ -7,9 +7,9 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{7080C8C0-A507-02E8-0A18-DB8221090B7A}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>MacSG.My.MyApplication</StartupObject>
-    <RootNamespace>MacSG</RootNamespace>
-    <AssemblyName>MacSG</AssemblyName>
+    <StartupObject>MossCast.My.MyApplication</StartupObject>
+    <RootNamespace>MossCast</RootNamespace>
+    <AssemblyName>MossCast</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
@@ -41,7 +41,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>bin\Debug\MacSG.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\MossCast.xml</DocumentationFile>
     <NoWarn>
     </NoWarn>
     <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
@@ -53,7 +53,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>bin\Release\MacSG.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\MossCast.xml</DocumentationFile>
     <NoWarn>
     </NoWarn>
     <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
@@ -73,13 +73,13 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Mac Logo.fw.ico</ApplicationIcon>
+    <ApplicationIcon>orangefrog.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>8BB9DFDD30B074B15610CAF0AC462C2C59118160</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>MacSG_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>MossCast_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>false</GenerateManifests>
@@ -189,7 +189,7 @@
     <EmbeddedResource Include="Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>MacSG.My.Resources</CustomToolNamespace>
+      <CustomToolNamespace>MossCast.My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="StreamerGroupBox.resx">
@@ -204,14 +204,14 @@
     </None>
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
-      <CustomToolNamespace>MacSG.My</CustomToolNamespace>
+      <CustomToolNamespace>MossCast.My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Mac Logo.fw.ico" />
+    <Content Include="orangefrog.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">

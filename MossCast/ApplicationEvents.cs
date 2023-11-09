@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Microsoft.VisualBasic.ApplicationServices;
 
-namespace MacSG.My
+namespace MossCast.My
 {
     internal partial class MyApplication
     {

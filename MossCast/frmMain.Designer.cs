@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace MacSG
+namespace MossCast
 {
     [Microsoft.VisualBasic.CompilerServices.DesignerGenerated()]
     public partial class frmMain : Form
@@ -46,7 +46,6 @@ namespace MacSG
             this.tsmiChangeVLCWindowSize = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiOpenAppData = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiCombineNamesPronouns = new System.Windows.Forms.ToolStripMenuItem();
-            this.CheckForUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.StreamlinkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiEditStreamlinkConfig = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiResetStreamlinkPath = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,14 +53,14 @@ namespace MacSG
             this.statusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.ToolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.StatusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.streamerGroupBox8 = new MacSG.StreamerGroupBox();
-            this.streamerGroupBox7 = new MacSG.StreamerGroupBox();
-            this.streamerGroupBox6 = new MacSG.StreamerGroupBox();
-            this.streamerGroupBox5 = new MacSG.StreamerGroupBox();
-            this.streamerGroupBox4 = new MacSG.StreamerGroupBox();
-            this.streamerGroupBox3 = new MacSG.StreamerGroupBox();
-            this.streamerGroupBox2 = new MacSG.StreamerGroupBox();
-            this.streamerGroupBox1 = new MacSG.StreamerGroupBox();
+            this.streamerGroupBox8 = new MossCast.StreamerGroupBox();
+            this.streamerGroupBox7 = new MossCast.StreamerGroupBox();
+            this.streamerGroupBox6 = new MossCast.StreamerGroupBox();
+            this.streamerGroupBox5 = new MossCast.StreamerGroupBox();
+            this.streamerGroupBox4 = new MossCast.StreamerGroupBox();
+            this.streamerGroupBox3 = new MossCast.StreamerGroupBox();
+            this.streamerGroupBox2 = new MossCast.StreamerGroupBox();
+            this.streamerGroupBox1 = new MossCast.StreamerGroupBox();
             this.menuStrip1.SuspendLayout();
             this.StatusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -117,8 +116,7 @@ namespace MacSG
             this.tsmiEditAutocompleteFile,
             this.tsmiChangeVLCWindowSize,
             this.tsmiOpenAppData,
-            this.tsmiCombineNamesPronouns,
-            this.CheckForUpdatesToolStripMenuItem});
+            this.tsmiCombineNamesPronouns});
             this.fileToolStripMenuItem1.Name = "fileToolStripMenuItem1";
             this.fileToolStripMenuItem1.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem1.Text = "File";
@@ -159,14 +157,6 @@ namespace MacSG
             this.tsmiCombineNamesPronouns.Text = "Combine Names and Pronouns";
             this.tsmiCombineNamesPronouns.Click += new System.EventHandler(this.tsmiFileConfigure_Click);
             // 
-            // CheckForUpdatesToolStripMenuItem
-            // 
-            this.CheckForUpdatesToolStripMenuItem.Enabled = false;
-            this.CheckForUpdatesToolStripMenuItem.Name = "CheckForUpdatesToolStripMenuItem";
-            this.CheckForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.CheckForUpdatesToolStripMenuItem.Text = "Check for updates";
-            this.CheckForUpdatesToolStripMenuItem.Click += new System.EventHandler(this.CheckForUpdatesToolStripMenuItem_Click);
-            // 
             // StreamlinkToolStripMenuItem
             // 
             this.StreamlinkToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -179,7 +169,7 @@ namespace MacSG
             // tsmiEditStreamlinkConfig
             // 
             this.tsmiEditStreamlinkConfig.Name = "tsmiEditStreamlinkConfig";
-            this.tsmiEditStreamlinkConfig.Size = new System.Drawing.Size(180, 22);
+            this.tsmiEditStreamlinkConfig.Size = new System.Drawing.Size(159, 22);
             this.tsmiEditStreamlinkConfig.Text = "Edit config file...";
             this.tsmiEditStreamlinkConfig.Click += new System.EventHandler(this.tsmiEditStreamlinkConfig_Click);
             // 
@@ -187,7 +177,7 @@ namespace MacSG
             // 
             this.tsmiResetStreamlinkPath.BackColor = System.Drawing.SystemColors.Control;
             this.tsmiResetStreamlinkPath.Name = "tsmiResetStreamlinkPath";
-            this.tsmiResetStreamlinkPath.Size = new System.Drawing.Size(180, 22);
+            this.tsmiResetStreamlinkPath.Size = new System.Drawing.Size(159, 22);
             this.tsmiResetStreamlinkPath.Text = "Reset path";
             this.tsmiResetStreamlinkPath.Click += new System.EventHandler(this.ResetStreamlinkPathToolStripMenuItem_Click);
             // 
@@ -318,7 +308,7 @@ namespace MacSG
             this.MinimumSize = new System.Drawing.Size(655, 670);
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "MacSG";
+            this.Text = "MossCast";
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -342,7 +332,6 @@ namespace MacSG
         internal ToolStripMenuItem tsmiEditStreamlinkConfig;
         internal ToolStripMenuItem tsmiResetStreamlinkPath;
         internal ToolStripMenuItem tsmiCombineNamesPronouns;
-        internal ToolStripMenuItem CheckForUpdatesToolStripMenuItem;
         internal ProgressBar ProgressBar1;
         private StreamerGroupBox streamerGroupBox1;
         private StreamerGroupBox streamerGroupBox2;

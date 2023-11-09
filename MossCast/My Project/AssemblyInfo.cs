@@ -8,10 +8,10 @@ using System.Runtime.InteropServices;
 
 // Review the values of the assembly attributes
 
-[assembly: AssemblyTitle("MacSG")]
-[assembly: AssemblyDescription("A Streamlink GUI for manging tournament captures.")]
-[assembly: AssemblyCompany("CoNDOR")]
-[assembly: AssemblyProduct("MacSG")]
+[assembly: AssemblyTitle("MossCast")]
+[assembly: AssemblyDescription("A Streamlink GUI for managing MossRanking events.")]
+[assembly: AssemblyCompany("MossRanking")]
+[assembly: AssemblyProduct("MossCast")]
 [assembly: AssemblyCopyright("This is a copyright message")]
 [assembly: AssemblyTrademark("This is a trademark message")]
 

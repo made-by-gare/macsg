@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 
-namespace MacSG
+namespace MossCast
 {
     public partial class StreamerGroupBox : UserControl
     {
@@ -105,7 +105,7 @@ namespace MacSG
 
         public void genStream(string streamer, string quality, string source, string windowTitle, string configFile, string racerNumber)
         {
-            string runningProcess = "/c title " + windowTitle + " & " + source + @"-a "" --config %AppData%\MacSG\vlcrc --width 877 --height 518 -"" " + " --title " + racerNumber + " --hls-live-edge 1 twitch.tv/" + streamer + quality;
+            string runningProcess = "/c title " + windowTitle + " & " + source + @"-a "" --config %AppData%\MossCast\vlcrc --width 877 --height 518 -"" " + " --title " + racerNumber + " --hls-live-edge 1 twitch.tv/" + streamer + quality;
             var strLivestreamerProcess = new ProcessStartInfo("cmd.exe", runningProcess);
 
             strLivestreamerProcess.WindowStyle = ProcessWindowStyle.Hidden;
@@ -115,7 +115,7 @@ namespace MacSG
         public void writeNameToFile(string streamer, string file)
         {
 
-            string strPathtoName = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\MacSG\streamer-" + file + ".txt";
+            string strPathtoName = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\MossCast\streamer-" + file + ".txt";
             StreamWriter swstreamer;
             swstreamer = My.MyProject.Computer.FileSystem.OpenTextFileWriter(strPathtoName, false);
             swstreamer.WriteLine(streamer);
@@ -125,7 +125,7 @@ namespace MacSG
         public void writePronounsToFile(string pronouns, string file)
         {
 
-            string strPathtoName = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\MacSG\streamer-pronouns-" + file + ".txt";
+            string strPathtoName = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\MossCast\streamer-pronouns-" + file + ".txt";
             StreamWriter swstreamer;
             swstreamer = My.MyProject.Computer.FileSystem.OpenTextFileWriter(strPathtoName, false);
             swstreamer.WriteLine(pronouns);
@@ -136,7 +136,7 @@ namespace MacSG
         public void writeNameAndPronounsToFile(string streamer, string pronouns, string file)
         {
 
-            string strPathtoName = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\MacSG\streamer-" + file + ".txt";
+            string strPathtoName = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\MossCast\streamer-" + file + ".txt";
 
 
             StreamWriter swstreamer;
@@ -229,7 +229,7 @@ namespace MacSG
 
             string idxStr = (idx + 1).ToString("00");
 
-            using (var swScore = new StreamWriter(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\MacSG\score-" + idxStr + ".txt"))
+            using (var swScore = new StreamWriter(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\MossCast\score-" + idxStr + ".txt"))
             {
                 swScore.Write(((NumericUpDown)sender).Value);
             }

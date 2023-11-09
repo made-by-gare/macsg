@@ -91,7 +91,7 @@ using Microsoft.VisualBasic;
 /* TODO ERROR: Skipped IfDirectiveTrivia
 #If _MYTYPE <> "Empty" Then
 */
-namespace MacSG.My
+namespace MossCast.My
 {
 
     /* TODO ERROR: Skipped IfDirectiveTrivia

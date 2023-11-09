@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 
-namespace MacSG.My
+namespace MossCast.My
 {
     internal static partial class MyProject
     {
