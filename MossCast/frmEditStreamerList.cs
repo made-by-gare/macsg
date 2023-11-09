@@ -60,7 +60,7 @@ namespace MossCast
                     continue;
                 }
 
-                output.Add(String.Join(", ", cells.ToArray()));
+                output.Add(String.Join(",", cells.ToArray()));
             }
 
             File.WriteAllText(My.MySettingsProperty.Settings.strPathToStreamerFile, String.Join("\n", output).TrimEnd());
