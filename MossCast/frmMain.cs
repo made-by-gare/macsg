@@ -343,5 +343,14 @@ namespace MossCast
             }
         }
 
+        private void btnClearAll_Click(object sender, EventArgs e)
+        {
+
+            vlcKill_Click(sender, e);
+            foreach (var group in streamerGroupBoxes)
+            {
+                group.Deactivate();
+            }
+        }
     }
 }

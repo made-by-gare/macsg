@@ -44,15 +44,15 @@ namespace MossCast
             if (selectedItem is not null && cbStreamer.Items.Contains(selectedItem))
             {
                 cbStreamer.SelectedItem = selectedItem;
-                activate();
+                Activate();
             }
             else
             {
-                deactivate();
+                Deactivate();
             }
         }
 
-        private void activate()
+        public void Activate()
         {
             var idx = cbStreamer.SelectedIndex;
             if (idx < 0)
@@ -71,7 +71,7 @@ namespace MossCast
             cbQuality.SelectedIndex = 0;
             updScore.Enabled = true;
         }
-        private void deactivate()
+        public void Deactivate()
         {
             cbStreamer.SelectedItem = null;
             btnDeselect.Hide();
@@ -93,14 +93,14 @@ namespace MossCast
 
         private void btnDeselect_Click(object sender, EventArgs e)
         {
-            deactivate();
+            Deactivate();
         }
 
         private void cbStreamer_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cbStreamer.SelectedIndex >= 0)
             {
-                activate();
+                Activate();
             }
         }
 
