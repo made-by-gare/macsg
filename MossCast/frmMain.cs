@@ -1,4 +1,6 @@
-﻿using System;
+﻿#pragma warning disable 1591
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -7,13 +9,10 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
-using System.Security.Principal;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.ApplicationServices;
-using Microsoft.VisualBasic.CompilerServices;
-using Microsoft.Win32;
+
 
 namespace MossCast
 {
@@ -26,8 +25,6 @@ namespace MossCast
         public List<string> streamers;
 
         private string appdataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\MossCast";
-
-        public event StartupNextInstanceEventHandler StartupNextInstance;
 
         public delegate void StartupNextInstanceEventHandler(object sender, StartupNextInstanceEventArgs e);
 
@@ -46,7 +43,7 @@ namespace MossCast
         private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         private static extern bool PostMessage(int hwnd, uint message, int wParam, int lParam);
-        private uint WM_QUIT = 0x12U;
+
         private uint WM_CLOSE = 0x10U;
 
         // Form load
@@ -323,13 +320,6 @@ namespace MossCast
         {
             My.MySettingsProperty.Settings.boolCombinedStreamerPronounFile = tsmiCombineNamesPronouns.Checked;
         }
-
-        // Handles CLI startup
-        public void cliStartup(string[] args)
-        {
-            btnKillVLC.PerformClick();
-        }
-
 
         private void tsmiOpenAppData_Click(object sender, EventArgs e)
         {

@@ -28,7 +28,6 @@ namespace MossCast.My
             EnableVisualStyles = true;
             SaveMySettingsOnExit = true;
             ShutdownStyle = Microsoft.VisualBasic.ApplicationServices.ShutdownMode.AfterMainFormCloses;
-            StartupNextInstance += MyApplication_StartupNextInstance;
         }
 
         [DebuggerStepThrough()]
