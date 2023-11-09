@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 
@@ -84,6 +85,13 @@ namespace MossCast
             var streamerInfo = My.MyProject.Forms.frmMain.streamerInfos[idx];
 
 
+            var qualities = getStreamQuality(streamerInfo.name);
+            if (qualities.Count < 1)
+            {
+                Deactivate();
+                return;
+            }
+
             btnDeselect.Show();
             btnDeselect.Enabled = true;
 
@@ -92,6 +100,9 @@ namespace MossCast
             txtPronouns.Text = streamerInfo.pronouns ?? "";
             btnLaunch.Enabled = true;
             cbQuality.Enabled = true;
+            cbQuality.Items.Add("best");
+            cbQuality.Items.AddRange(qualities.ToArray());
+            cbQuality.Items.Add("worst");
             cbQuality.SelectedIndex = 0;
             ResetScore();
             updScore.Enabled = true;
@@ -132,6 +143,7 @@ namespace MossCast
 
             btnLaunch.Enabled = false;
             cbQuality.Enabled = false;
+            cbQuality.Items.Clear();
             cbQuality.SelectedIndex = -1;
             ResetScore();
             updScore.Enabled = false;
@@ -163,6 +175,42 @@ namespace MossCast
             {
                 Activate();
             }
+        }
+
+        public List<string> getStreamQuality(string streamer)
+        {
+
+            var proc = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = "streamlink",
+                    Arguments = "https://twitch.tv/" + streamer,
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    CreateNoWindow = true
+                }
+            };
+            proc.Start();
+            while (!proc.StandardOutput.EndOfStream)
+            {
+                string line = proc.StandardOutput.ReadLine();
+                if (line.StartsWith("Available streams: "))
+                {
+                    return line
+                        .Replace("Available streams: ", "")
+                        .Replace("audio_only", "")
+                        .Replace("(best)", "")
+                        .Replace("(worst)", "")
+                        .Split(',')
+                        .Select(x => x.Trim())
+                        .Where(x => !string.IsNullOrWhiteSpace(x))
+                        .Reverse()
+                        .ToList();
+                }
+            }
+
+            return new List<string>();
         }
 
         public void genStream(string streamer, string quality, string source, string windowTitle, string configFile, string racerNumber)
@@ -243,7 +291,7 @@ namespace MossCast
             }
 
             string strSource = "streamlink ";
-            string strQuality = " best ";
+            string strQuality = " " + cbQuality.SelectedItem ?? "best" + " ";
             genStream(streamer: streamerInfo.name, quality: strQuality, source: strSource, windowTitle: "CMD" + windowTitle, configFile: idxStr, racerNumber: windowTitle);
         }
 

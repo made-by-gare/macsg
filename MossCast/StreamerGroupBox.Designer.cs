@@ -30,6 +30,7 @@ namespace MossCast
         private void InitializeComponent()
         {
             this.groupStreamer = new System.Windows.Forms.GroupBox();
+            this.btnDeselect = new System.Windows.Forms.Button();
             this.lblPronouns = new System.Windows.Forms.Label();
             this.txtPronouns = new System.Windows.Forms.TextBox();
             this.cbStreamer = new System.Windows.Forms.ComboBox();
@@ -39,7 +40,6 @@ namespace MossCast
             this.txtDisplayName = new System.Windows.Forms.TextBox();
             this.updScore = new System.Windows.Forms.NumericUpDown();
             this.btnLaunch = new System.Windows.Forms.Button();
-            this.btnDeselect = new System.Windows.Forms.Button();
             this.groupStreamer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.updScore)).BeginInit();
             this.SuspendLayout();
@@ -64,6 +64,21 @@ namespace MossCast
             this.groupStreamer.TabStop = false;
             this.groupStreamer.Text = "Stream";
             this.groupStreamer.Enter += new System.EventHandler(this.stream1Group_Enter);
+            // 
+            // btnDeselect
+            // 
+            this.btnDeselect.Enabled = false;
+            this.btnDeselect.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F);
+            this.btnDeselect.Location = new System.Drawing.Point(222, 18);
+            this.btnDeselect.Margin = new System.Windows.Forms.Padding(0);
+            this.btnDeselect.Name = "btnDeselect";
+            this.btnDeselect.Size = new System.Drawing.Size(16, 16);
+            this.btnDeselect.TabIndex = 28;
+            this.btnDeselect.Text = "X";
+            this.btnDeselect.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnDeselect.UseVisualStyleBackColor = true;
+            this.btnDeselect.Visible = false;
+            this.btnDeselect.Click += new System.EventHandler(this.btnDeselect_Click);
             // 
             // lblPronouns
             // 
@@ -100,8 +115,6 @@ namespace MossCast
             this.cbQuality.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbQuality.Enabled = false;
             this.cbQuality.FormattingEnabled = true;
-            this.cbQuality.Items.AddRange(new object[] {
-            "best"});
             this.cbQuality.Location = new System.Drawing.Point(99, 98);
             this.cbQuality.Name = "cbQuality";
             this.cbQuality.Size = new System.Drawing.Size(75, 21);
@@ -155,21 +168,6 @@ namespace MossCast
             this.btnLaunch.Text = "Launch";
             this.btnLaunch.UseVisualStyleBackColor = true;
             this.btnLaunch.Click += new System.EventHandler(this.btnLaunch_Click);
-            // 
-            // btnDeselect
-            // 
-            this.btnDeselect.Enabled = false;
-            this.btnDeselect.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F);
-            this.btnDeselect.Location = new System.Drawing.Point(222, 18);
-            this.btnDeselect.Margin = new System.Windows.Forms.Padding(0);
-            this.btnDeselect.Name = "btnDeselect";
-            this.btnDeselect.Size = new System.Drawing.Size(16, 16);
-            this.btnDeselect.TabIndex = 28;
-            this.btnDeselect.Text = "X";
-            this.btnDeselect.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnDeselect.UseVisualStyleBackColor = true;
-            this.btnDeselect.Visible = false;
-            this.btnDeselect.Click += new System.EventHandler(this.btnDeselect_Click);
             // 
             // StreamerGroupBox
             // 
