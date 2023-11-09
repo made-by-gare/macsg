@@ -53,8 +53,8 @@ namespace MossCast
             this.ToolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.StatusStrip1 = new System.Windows.Forms.StatusStrip();
             this.groupBoxControls = new System.Windows.Forms.GroupBox();
-            this.btnClearAll = new System.Windows.Forms.Button();
             this.btnQuickLoad = new System.Windows.Forms.Button();
+            this.btnClearAll = new System.Windows.Forms.Button();
             this.streamerGroupBox12 = new MossCast.StreamerGroupBox();
             this.streamerGroupBox11 = new MossCast.StreamerGroupBox();
             this.streamerGroupBox10 = new MossCast.StreamerGroupBox();
@@ -67,6 +67,7 @@ namespace MossCast
             this.streamerGroupBox3 = new MossCast.StreamerGroupBox();
             this.streamerGroupBox2 = new MossCast.StreamerGroupBox();
             this.streamerGroupBox1 = new MossCast.StreamerGroupBox();
+            this.btnResetScore = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.StatusStrip1.SuspendLayout();
             this.groupBoxControls.SuspendLayout();
@@ -214,6 +215,7 @@ namespace MossCast
             // 
             // groupBoxControls
             // 
+            this.groupBoxControls.Controls.Add(this.btnResetScore);
             this.groupBoxControls.Controls.Add(this.btnQuickLoad);
             this.groupBoxControls.Controls.Add(this.btnClearAll);
             this.groupBoxControls.Controls.Add(this.btnMoveResize);
@@ -227,16 +229,6 @@ namespace MossCast
             this.groupBoxControls.TabStop = false;
             this.groupBoxControls.Text = "Controls";
             // 
-            // btnClearAll
-            // 
-            this.btnClearAll.Location = new System.Drawing.Point(5, 156);
-            this.btnClearAll.Name = "btnClearAll";
-            this.btnClearAll.Size = new System.Drawing.Size(101, 29);
-            this.btnClearAll.TabIndex = 18;
-            this.btnClearAll.Text = "Clear All";
-            this.btnClearAll.UseVisualStyleBackColor = true;
-            this.btnClearAll.Click += new System.EventHandler(this.btnClearAll_Click);
-            // 
             // btnQuickLoad
             // 
             this.btnQuickLoad.Location = new System.Drawing.Point(5, 16);
@@ -246,6 +238,16 @@ namespace MossCast
             this.btnQuickLoad.Text = "Quick Load";
             this.btnQuickLoad.UseVisualStyleBackColor = true;
             this.btnQuickLoad.Click += new System.EventHandler(this.btnQuickLoad_Click);
+            // 
+            // btnClearAll
+            // 
+            this.btnClearAll.Location = new System.Drawing.Point(5, 156);
+            this.btnClearAll.Name = "btnClearAll";
+            this.btnClearAll.Size = new System.Drawing.Size(101, 29);
+            this.btnClearAll.TabIndex = 18;
+            this.btnClearAll.Text = "Clear All";
+            this.btnClearAll.UseVisualStyleBackColor = true;
+            this.btnClearAll.Click += new System.EventHandler(this.btnClearAll_Click);
             // 
             // streamerGroupBox12
             // 
@@ -355,6 +357,16 @@ namespace MossCast
             this.streamerGroupBox1.Size = new System.Drawing.Size(251, 142);
             this.streamerGroupBox1.TabIndex = 22;
             // 
+            // btnResetScore
+            // 
+            this.btnResetScore.Location = new System.Drawing.Point(5, 191);
+            this.btnResetScore.Name = "btnResetScore";
+            this.btnResetScore.Size = new System.Drawing.Size(101, 29);
+            this.btnResetScore.TabIndex = 20;
+            this.btnResetScore.Text = "Reset Scores";
+            this.btnResetScore.UseVisualStyleBackColor = true;
+            this.btnResetScore.Click += new System.EventHandler(this.btnResetScore_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -424,5 +436,6 @@ namespace MossCast
         private GroupBox groupBoxControls;
         private Button btnClearAll;
         private Button btnQuickLoad;
+        private Button btnResetScore;
     }
 }

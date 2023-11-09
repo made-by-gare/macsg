@@ -266,11 +266,9 @@ namespace MossCast
             }
         }
 
-        // Generate all streams by "clicking" the 4 buttons
+        // Generate all streams
         private void btnGenAll_Click(object sender, EventArgs e)
         {
-
-            // btnStream1Gen.PerformClick();
 
             foreach (var group in streamerGroupBoxes)
             {
@@ -388,6 +386,15 @@ namespace MossCast
                 streamerGroupBox.SelectStreamer(streamers[0]);
                 streamers.RemoveAt(0);
             }
+        }
+
+        private void btnResetScore_Click(object sender, EventArgs e)
+        {
+            foreach (var group in streamerGroupBoxes)
+            {
+                group.ResetScore();
+            }
+
         }
     }
 }

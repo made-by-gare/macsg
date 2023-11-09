@@ -93,6 +93,7 @@ namespace MossCast
             btnLaunch.Enabled = true;
             cbQuality.Enabled = true;
             cbQuality.SelectedIndex = 0;
+            ResetScore();
             updScore.Enabled = true;
 
             var pronouns = streamerInfo.pronouns ?? "";
@@ -114,6 +115,12 @@ namespace MossCast
             }
         }
 
+        public void ResetScore()
+        {
+            updScore.Value = 0;
+
+        }
+
         public void Deactivate()
         {
             cbStreamer.SelectedItem = null;
@@ -126,6 +133,7 @@ namespace MossCast
             btnLaunch.Enabled = false;
             cbQuality.Enabled = false;
             cbQuality.SelectedIndex = -1;
+            ResetScore();
             updScore.Enabled = false;
 
             var streamIdx = Array.IndexOf(My.MyProject.Forms.frmMain.streamerGroupBoxes, this);
@@ -273,8 +281,6 @@ namespace MossCast
             {
                 swScore.Write(((NumericUpDown)sender).Value);
             }
-
-
         }
     }
 }
