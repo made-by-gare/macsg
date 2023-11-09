@@ -83,7 +83,7 @@ namespace MossCast
                 streamerGroupBox7,
                 streamerGroupBox8,
             };
-            setupLivestreamerCheck();
+            setupStreamLinkCheck();
             setupStreamerSources();
 
 
@@ -95,52 +95,64 @@ namespace MossCast
 
 
         // Check that livestreamer is installed in the Program Files (x86) or Program Files folder
-        public void setupLivestreamerCheck()
+        public void setupStreamLinkCheck()
         {
 
-            if (File.Exists(@"C:\Program Files (x86)\Streamlink\bin\streamlink.exe"))
+            if (!string.IsNullOrEmpty(My.MySettingsProperty.Settings.streamlinkDir) && File.Exists(My.MySettingsProperty.Settings.streamlinkDir))
             {
-                My.MySettingsProperty.Settings.streamlinkDir = @"C:\Program Files (x86)\Streamlink\bin\streamlink.exe";
-            }
-            else if (File.Exists(@"C:\Program Files\Streamlink\bin\streamlink.exe"))
-            {
-                My.MySettingsProperty.Settings.streamlinkDir = @"C:\Program Files\Streamlink\bin\streamlink.exe";
+                return;
             }
 
-            if (!File.Exists(My.MySettingsProperty.Settings.streamlinkDir))
-            {
-                int boolStreamlink = (int)MessageBox.Show("Streamlink was not found in its default directory.  Click Yes to download the latest version from GitHub, or No to specify streamlink.exe's location.", "Streamlink not found", MessageBoxButtons.YesNo);
 
-                if (boolStreamlink == (int)DialogResult.Yes)
+            var possibleLocations = new[]{
+                @"C:\Program Files (x86)\Streamlink\bin\streamlink.exe",
+                @"C:\Program Files\Streamlink\bin\streamlink.exe",
+                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Streamlink\bin\streamlink.exe",
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Streamlink\bin\streamlink.exe",
+            };
+
+            foreach (var location in possibleLocations)
+            {
+                if (File.Exists(location))
+                {
+                    My.MySettingsProperty.Settings.streamlinkDir = location;
+                    return;
+                }
+            }
+
+
+            int boolStreamlink = (int)MessageBox.Show("Streamlink was not found in its default directory.  Click Yes to download the latest version from GitHub, or No to specify streamlink.exe's location.", "Streamlink not found", MessageBoxButtons.YesNo);
+
+            if (boolStreamlink == (int)DialogResult.Yes)
+            {
+                foreach (Control ctrl in Controls)
+                    ctrl.Enabled = false;
+                var client = new WebClient();
+                client.DownloadProgressChanged += ShowDownloadProgress;
+                client.DownloadFileCompleted += DownloadFileCompleted;
+
+                client.DownloadFileAsync(new Uri("https://github.com/streamlink/windows-builds/releases/download/4.3.0-1/streamlink-4.3.0-1-py310-x86.exe"), Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\MossCast\streamlink-1.1.1.exe");
+            }
+            else if (boolStreamlink == (int)DialogResult.No)
+            {
+                var fd = new OpenFileDialog();
+
+                fd.Title = "Select a file...";
+                fd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
+                fd.Filter = "Streamlink executable (*.exe)|*.exe";
+                fd.RestoreDirectory = true;
+
+                if (fd.ShowDialog() == DialogResult.OK)
+                {
+                    My.MySettingsProperty.Settings.streamlinkDir = fd.FileName.ToString();
+                }
+                else
                 {
                     foreach (Control ctrl in Controls)
                         ctrl.Enabled = false;
-                    var client = new WebClient();
-                    client.DownloadProgressChanged += ShowDownloadProgress;
-                    client.DownloadFileCompleted += DownloadFileCompleted;
-
-                    client.DownloadFileAsync(new Uri("https://github.com/streamlink/windows-builds/releases/download/4.3.0-1/streamlink-4.3.0-1-py310-x86.exe"), Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\MossCast\streamlink-1.1.1.exe");
-                }
-                else if (boolStreamlink == (int)DialogResult.No)
-                {
-                    var fd = new OpenFileDialog();
-
-                    fd.Title = "Select a file...";
-                    fd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
-                    fd.Filter = "Streamlink executable (*.exe)|*.exe";
-                    fd.RestoreDirectory = true;
-
-                    if (fd.ShowDialog() == DialogResult.OK)
-                    {
-                        My.MySettingsProperty.Settings.streamlinkDir = fd.FileName.ToString();
-                    }
-                    else
-                    {
-                        foreach (Control ctrl in Controls)
-                            ctrl.Enabled = false;
-                    }
                 }
             }
+
         }
 
         // Handler for Streamlink download progress bar
@@ -342,7 +354,7 @@ namespace MossCast
             if (boolResetStreamlinkPath == (int)DialogResult.Yes)
             {
                 My.MySettingsProperty.Settings.streamlinkDir = "Not set";
-                setupLivestreamerCheck();
+                setupStreamLinkCheck();
             }
         }
 

@@ -47,7 +47,6 @@ namespace MossCast
             this.tsmiOpenAppData = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiCombineNamesPronouns = new System.Windows.Forms.ToolStripMenuItem();
             this.StreamlinkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiEditStreamlinkConfig = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiResetStreamlinkPath = new System.Windows.Forms.ToolStripMenuItem();
             this.ProgressBar1 = new System.Windows.Forms.ProgressBar();
             this.statusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -160,24 +159,16 @@ namespace MossCast
             // StreamlinkToolStripMenuItem
             // 
             this.StreamlinkToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiEditStreamlinkConfig,
             this.tsmiResetStreamlinkPath});
             this.StreamlinkToolStripMenuItem.Name = "StreamlinkToolStripMenuItem";
             this.StreamlinkToolStripMenuItem.Size = new System.Drawing.Size(75, 20);
             this.StreamlinkToolStripMenuItem.Text = "Streamlink";
             // 
-            // tsmiEditStreamlinkConfig
-            // 
-            this.tsmiEditStreamlinkConfig.Name = "tsmiEditStreamlinkConfig";
-            this.tsmiEditStreamlinkConfig.Size = new System.Drawing.Size(159, 22);
-            this.tsmiEditStreamlinkConfig.Text = "Edit config file...";
-            this.tsmiEditStreamlinkConfig.Click += new System.EventHandler(this.tsmiEditStreamlinkConfig_Click);
-            // 
             // tsmiResetStreamlinkPath
             // 
             this.tsmiResetStreamlinkPath.BackColor = System.Drawing.SystemColors.Control;
             this.tsmiResetStreamlinkPath.Name = "tsmiResetStreamlinkPath";
-            this.tsmiResetStreamlinkPath.Size = new System.Drawing.Size(159, 22);
+            this.tsmiResetStreamlinkPath.Size = new System.Drawing.Size(180, 22);
             this.tsmiResetStreamlinkPath.Text = "Reset path";
             this.tsmiResetStreamlinkPath.Click += new System.EventHandler(this.ResetStreamlinkPathToolStripMenuItem_Click);
             // 
@@ -329,7 +320,6 @@ namespace MossCast
         internal ToolStripMenuItem tsmiChangeVLCWindowSize;
         internal ToolStripMenuItem tsmiOpenAppData;
         internal ToolStripMenuItem StreamlinkToolStripMenuItem;
-        internal ToolStripMenuItem tsmiEditStreamlinkConfig;
         internal ToolStripMenuItem tsmiResetStreamlinkPath;
         internal ToolStripMenuItem tsmiCombineNamesPronouns;
         internal ProgressBar ProgressBar1;
