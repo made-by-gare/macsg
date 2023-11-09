@@ -54,6 +54,7 @@ namespace MossCast
             this.StatusStrip1 = new System.Windows.Forms.StatusStrip();
             this.groupBoxControls = new System.Windows.Forms.GroupBox();
             this.btnClearAll = new System.Windows.Forms.Button();
+            this.btnQuickLoad = new System.Windows.Forms.Button();
             this.streamerGroupBox12 = new MossCast.StreamerGroupBox();
             this.streamerGroupBox11 = new MossCast.StreamerGroupBox();
             this.streamerGroupBox10 = new MossCast.StreamerGroupBox();
@@ -66,7 +67,6 @@ namespace MossCast
             this.streamerGroupBox3 = new MossCast.StreamerGroupBox();
             this.streamerGroupBox2 = new MossCast.StreamerGroupBox();
             this.streamerGroupBox1 = new MossCast.StreamerGroupBox();
-            this.btnQuickLoad = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.StatusStrip1.SuspendLayout();
             this.groupBoxControls.SuspendLayout();
@@ -237,6 +237,16 @@ namespace MossCast
             this.btnClearAll.UseVisualStyleBackColor = true;
             this.btnClearAll.Click += new System.EventHandler(this.btnClearAll_Click);
             // 
+            // btnQuickLoad
+            // 
+            this.btnQuickLoad.Location = new System.Drawing.Point(5, 16);
+            this.btnQuickLoad.Name = "btnQuickLoad";
+            this.btnQuickLoad.Size = new System.Drawing.Size(101, 29);
+            this.btnQuickLoad.TabIndex = 19;
+            this.btnQuickLoad.Text = "Quick Load";
+            this.btnQuickLoad.UseVisualStyleBackColor = true;
+            this.btnQuickLoad.Click += new System.EventHandler(this.btnQuickLoad_Click);
+            // 
             // streamerGroupBox12
             // 
             this.streamerGroupBox12.Header = "Stream 12";
@@ -344,16 +354,6 @@ namespace MossCast
             this.streamerGroupBox1.Name = "streamerGroupBox1";
             this.streamerGroupBox1.Size = new System.Drawing.Size(251, 142);
             this.streamerGroupBox1.TabIndex = 22;
-            // 
-            // btnQuickLoad
-            // 
-            this.btnQuickLoad.Location = new System.Drawing.Point(5, 16);
-            this.btnQuickLoad.Name = "btnQuickLoad";
-            this.btnQuickLoad.Size = new System.Drawing.Size(101, 29);
-            this.btnQuickLoad.TabIndex = 19;
-            this.btnQuickLoad.Text = "Quick Load";
-            this.btnQuickLoad.UseVisualStyleBackColor = true;
-            this.btnQuickLoad.Click += new System.EventHandler(this.btnQuickLoad_Click);
             // 
             // frmMain
             // 
