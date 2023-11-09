@@ -352,5 +352,42 @@ namespace MossCast
                 group.Deactivate();
             }
         }
+
+        private void btnQuickLoad_Click(object sender, EventArgs e)
+        {
+            var response = Interaction.InputBox("Please provide a comma delimited list of streamers", "Quick Load Streamers");
+            if (string.IsNullOrEmpty(response))
+            {
+                return;
+            }
+            var streamers = response
+                .Split(',')
+                .Select(x => x.Trim())
+                .Where(x => !string.IsNullOrEmpty(x))
+                .Where(x => this.streamers.Contains(x))
+                .ToList();
+
+            if (streamers.Count <= 0)
+            {
+                return;
+            }
+
+            foreach (var streamerGroupBox in streamerGroupBoxes)
+            {
+
+                if (streamers.Count <= 0)
+                {
+                    break;
+                }
+
+                if (streamerGroupBox.IsActive())
+                {
+                    continue;
+                }
+
+                streamerGroupBox.SelectStreamer(streamers[0]);
+                streamers.RemoveAt(0);
+            }
+        }
     }
 }

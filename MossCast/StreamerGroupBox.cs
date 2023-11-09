@@ -44,11 +44,24 @@ namespace MossCast
             if (selectedItem is not null && cbStreamer.Items.Contains(selectedItem))
             {
                 cbStreamer.SelectedItem = selectedItem;
-                Activate();
             }
             else
             {
                 Deactivate();
+            }
+        }
+
+        public bool IsActive()
+        {
+            return cbStreamer.SelectedIndex >= 0;
+
+        }
+
+        public void SelectStreamer(string streamer)
+        {
+            if (cbStreamer.Items.Contains(streamer))
+            {
+                cbStreamer.SelectedItem = streamer;
             }
         }
 

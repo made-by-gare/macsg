@@ -66,6 +66,7 @@ namespace MossCast
             this.streamerGroupBox3 = new MossCast.StreamerGroupBox();
             this.streamerGroupBox2 = new MossCast.StreamerGroupBox();
             this.streamerGroupBox1 = new MossCast.StreamerGroupBox();
+            this.btnQuickLoad = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.StatusStrip1.SuspendLayout();
             this.groupBoxControls.SuspendLayout();
@@ -73,7 +74,7 @@ namespace MossCast
             // 
             // btnGenAll
             // 
-            this.btnGenAll.Location = new System.Drawing.Point(6, 54);
+            this.btnGenAll.Location = new System.Drawing.Point(5, 86);
             this.btnGenAll.Name = "btnGenAll";
             this.btnGenAll.Size = new System.Drawing.Size(101, 29);
             this.btnGenAll.TabIndex = 17;
@@ -83,7 +84,7 @@ namespace MossCast
             // 
             // btnKillVLC
             // 
-            this.btnKillVLC.Location = new System.Drawing.Point(6, 89);
+            this.btnKillVLC.Location = new System.Drawing.Point(5, 121);
             this.btnKillVLC.Name = "btnKillVLC";
             this.btnKillVLC.Size = new System.Drawing.Size(101, 29);
             this.btnKillVLC.TabIndex = 16;
@@ -93,7 +94,7 @@ namespace MossCast
             // 
             // btnMoveResize
             // 
-            this.btnMoveResize.Location = new System.Drawing.Point(6, 19);
+            this.btnMoveResize.Location = new System.Drawing.Point(5, 51);
             this.btnMoveResize.Name = "btnMoveResize";
             this.btnMoveResize.Size = new System.Drawing.Size(101, 29);
             this.btnMoveResize.TabIndex = 15;
@@ -213,6 +214,7 @@ namespace MossCast
             // 
             // groupBoxControls
             // 
+            this.groupBoxControls.Controls.Add(this.btnQuickLoad);
             this.groupBoxControls.Controls.Add(this.btnClearAll);
             this.groupBoxControls.Controls.Add(this.btnMoveResize);
             this.groupBoxControls.Controls.Add(this.btnKillVLC);
@@ -227,7 +229,7 @@ namespace MossCast
             // 
             // btnClearAll
             // 
-            this.btnClearAll.Location = new System.Drawing.Point(6, 124);
+            this.btnClearAll.Location = new System.Drawing.Point(5, 156);
             this.btnClearAll.Name = "btnClearAll";
             this.btnClearAll.Size = new System.Drawing.Size(101, 29);
             this.btnClearAll.TabIndex = 18;
@@ -343,6 +345,16 @@ namespace MossCast
             this.streamerGroupBox1.Size = new System.Drawing.Size(251, 142);
             this.streamerGroupBox1.TabIndex = 22;
             // 
+            // btnQuickLoad
+            // 
+            this.btnQuickLoad.Location = new System.Drawing.Point(5, 16);
+            this.btnQuickLoad.Name = "btnQuickLoad";
+            this.btnQuickLoad.Size = new System.Drawing.Size(101, 29);
+            this.btnQuickLoad.TabIndex = 19;
+            this.btnQuickLoad.Text = "Quick Load";
+            this.btnQuickLoad.UseVisualStyleBackColor = true;
+            this.btnQuickLoad.Click += new System.EventHandler(this.btnQuickLoad_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -411,5 +423,6 @@ namespace MossCast
         private StreamerGroupBox streamerGroupBox9;
         private GroupBox groupBoxControls;
         private Button btnClearAll;
+        private Button btnQuickLoad;
     }
 }
