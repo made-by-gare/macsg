@@ -205,6 +205,12 @@ namespace MossCast
 
         }
 
+
+        public void Launch()
+        {
+            btnLaunch.PerformClick();
+        }
+
         public bool processChecker(string windowTitle)
         {
             Process[] procProcesses = Process.GetProcesses();

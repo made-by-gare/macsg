@@ -223,32 +223,29 @@ namespace MossCast
                     My.MySettingsProperty.Settings.strWindowSize = "882 520";
             }
 
-            string strXPos = My.MySettingsProperty.Settings.strWindowSize.Split(' ')[0];
-            string strYPos = My.MySettingsProperty.Settings.strWindowSize.Split(' ')[1];
+            var width = int.Parse(My.MySettingsProperty.Settings.strWindowSize.Split(' ')[0]);
+            var height = int.Parse(My.MySettingsProperty.Settings.strWindowSize.Split(' ')[1]);
 
-            int intXPos = int.Parse(strXPos) + 5;
-            int intYPos = int.Parse(strYPos) - 5;
+            int startXpos = 5;
+            int startYPos = 5;
             IntPtr hWnd;
 
-            string arglpClassName = null;
-            string arglpWindowName = "First - VLC Media Player";
-            hWnd = frmMain.FindWindow(arglpClassName, arglpWindowName);
-            MoveWindow(hWnd, 0, 0, Conversions.ToInteger(strXPos), Conversions.ToInteger(strYPos), true);
 
-            string arglpClassName1 = null;
-            string arglpWindowName1 = "Second - VLC Media Player";
-            hWnd = frmMain.FindWindow(arglpClassName1, arglpWindowName1);
-            MoveWindow(hWnd, intXPos, 0, Conversions.ToInteger(strXPos), Conversions.ToInteger(strYPos), true);
+            var idx = 1;
+            foreach (var group in streamerGroupBoxes)
+            {
+                var idxStr = idx.ToString("00");
 
-            string arglpClassName2 = null;
-            string arglpWindowName2 = "Third - VLC Media Player";
-            hWnd = frmMain.FindWindow(arglpClassName2, arglpWindowName2);
-            MoveWindow(hWnd, 0, intYPos, Conversions.ToInteger(strXPos), Conversions.ToInteger(strYPos), true);
+                string arglpClassName = null;
+                string arglpWindowName = "Stream" + idxStr + " - VLC Media Player";
 
-            string arglpClassName3 = null;
-            string arglpWindowName3 = "Fourth - VLC Media Player";
-            hWnd = frmMain.FindWindow(arglpClassName3, arglpWindowName3);
-            MoveWindow(hWnd, intXPos, intYPos, Conversions.ToInteger(strXPos), Conversions.ToInteger(strYPos), true);
+                var xPos = startXpos + (idx - 1) % 4 * width;
+                var yPos = startYPos + (idx - 1) / 4 * height;
+                hWnd = frmMain.FindWindow(arglpClassName, arglpWindowName);
+                MoveWindow(hWnd, xPos, yPos, width, height, true);
+
+                idx += 1;
+            }
 
         }
 
@@ -256,27 +253,19 @@ namespace MossCast
         private void vlcKill_Click(object sender, EventArgs e)
         {
 
-            IntPtr hWnd;
-            string arglpClassName = null;
-            string arglpWindowName = "First - VLC Media Player";
-            hWnd = frmMain.FindWindow(arglpClassName, arglpWindowName);
-            PostMessage((int)hWnd, WM_CLOSE, 0, 0);
+            var idx = 1;
+            foreach (var group in streamerGroupBoxes)
+            {
+                var idxStr = idx.ToString("00");
 
-            string arglpClassName1 = null;
-            string arglpWindowName1 = "Second - VLC Media Player";
-            hWnd = frmMain.FindWindow(arglpClassName1, arglpWindowName1);
-            PostMessage((int)hWnd, WM_CLOSE, 0, 0);
+                IntPtr hWnd;
+                string arglpClassName = null;
+                string arglpWindowName = "Stream" + idxStr + " - VLC Media Player";
+                hWnd = frmMain.FindWindow(arglpClassName, arglpWindowName);
+                PostMessage((int)hWnd, WM_CLOSE, 0, 0);
 
-            string arglpClassName2 = null;
-            string arglpWindowName2 = "Third - VLC Media Player";
-            hWnd = frmMain.FindWindow(arglpClassName2, arglpWindowName2);
-            PostMessage((int)hWnd, WM_CLOSE, 0, 0);
-
-            string arglpClassName3 = null;
-            string arglpWindowName3 = "Fourth - VLC Media Player";
-            hWnd = frmMain.FindWindow(arglpClassName3, arglpWindowName3);
-            PostMessage((int)hWnd, WM_CLOSE, 0, 0);
-
+                idx += 1;
+            }
         }
 
         // Generate all streams by "clicking" the 4 buttons
@@ -284,6 +273,11 @@ namespace MossCast
         {
 
             // btnStream1Gen.PerformClick();
+
+            foreach (var group in streamerGroupBoxes)
+            {
+                group.Launch();
+            }
 
             if (!string.IsNullOrEmpty(My.MySettingsProperty.Settings.strWindowSize))
             {
