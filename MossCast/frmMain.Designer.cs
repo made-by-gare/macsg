@@ -96,6 +96,7 @@ namespace MossCast
             // 
             // menuStrip1
             // 
+            this.menuStrip1.BackColor = System.Drawing.SystemColors.Control;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem1,
             this.StreamlinkToolStripMenuItem});
@@ -168,7 +169,7 @@ namespace MossCast
             // 
             this.tsmiResetStreamlinkPath.BackColor = System.Drawing.SystemColors.Control;
             this.tsmiResetStreamlinkPath.Name = "tsmiResetStreamlinkPath";
-            this.tsmiResetStreamlinkPath.Size = new System.Drawing.Size(180, 22);
+            this.tsmiResetStreamlinkPath.Size = new System.Drawing.Size(129, 22);
             this.tsmiResetStreamlinkPath.Text = "Reset path";
             this.tsmiResetStreamlinkPath.Click += new System.EventHandler(this.ResetStreamlinkPathToolStripMenuItem_Click);
             // 
