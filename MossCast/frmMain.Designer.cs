@@ -41,12 +41,8 @@ namespace MossCast
             this.btnMoveResize = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSelectAutocompleteFile = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiEditAutocompleteFile = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiOpenAppData = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiCombineNamesPronouns = new System.Windows.Forms.ToolStripMenuItem();
-            this.StreamlinkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiResetStreamlinkPath = new System.Windows.Forms.ToolStripMenuItem();
             this.ProgressBar1 = new System.Windows.Forms.ProgressBar();
             this.statusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.ToolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -67,6 +63,7 @@ namespace MossCast
             this.streamerGroupBox3 = new MossCast.StreamerGroupBox();
             this.streamerGroupBox2 = new MossCast.StreamerGroupBox();
             this.streamerGroupBox1 = new MossCast.StreamerGroupBox();
+            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.StatusStrip1.SuspendLayout();
             this.groupBoxControls.SuspendLayout();
@@ -106,8 +103,7 @@ namespace MossCast
             // 
             this.menuStrip1.BackColor = System.Drawing.SystemColors.Control;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem1,
-            this.StreamlinkToolStripMenuItem});
+            this.fileToolStripMenuItem1});
             this.menuStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.MaximumSize = new System.Drawing.Size(470, 24);
@@ -120,58 +116,26 @@ namespace MossCast
             // fileToolStripMenuItem1
             // 
             this.fileToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiSelectAutocompleteFile,
             this.tsmiEditAutocompleteFile,
             this.tsmiOpenAppData,
-            this.tsmiCombineNamesPronouns});
+            this.settingsToolStripMenuItem});
             this.fileToolStripMenuItem1.Name = "fileToolStripMenuItem1";
             this.fileToolStripMenuItem1.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem1.Text = "File";
             // 
-            // tsmiSelectAutocompleteFile
-            // 
-            this.tsmiSelectAutocompleteFile.Name = "tsmiSelectAutocompleteFile";
-            this.tsmiSelectAutocompleteFile.Size = new System.Drawing.Size(240, 22);
-            this.tsmiSelectAutocompleteFile.Text = "Select Streamerlist File";
-            this.tsmiSelectAutocompleteFile.Click += new System.EventHandler(this.selectAutocompleteFile_Click);
-            // 
             // tsmiEditAutocompleteFile
             // 
             this.tsmiEditAutocompleteFile.Name = "tsmiEditAutocompleteFile";
-            this.tsmiEditAutocompleteFile.Size = new System.Drawing.Size(240, 22);
+            this.tsmiEditAutocompleteFile.Size = new System.Drawing.Size(188, 22);
             this.tsmiEditAutocompleteFile.Text = "Edit Streamerlist File";
             this.tsmiEditAutocompleteFile.Click += new System.EventHandler(this.tsmiEditAutocompleteFile_Click);
             // 
             // tsmiOpenAppData
             // 
             this.tsmiOpenAppData.Name = "tsmiOpenAppData";
-            this.tsmiOpenAppData.Size = new System.Drawing.Size(240, 22);
-            this.tsmiOpenAppData.Text = "Open AppData folder...";
+            this.tsmiOpenAppData.Size = new System.Drawing.Size(188, 22);
+            this.tsmiOpenAppData.Text = "Open AppData Folder";
             this.tsmiOpenAppData.Click += new System.EventHandler(this.tsmiOpenAppData_Click);
-            // 
-            // tsmiCombineNamesPronouns
-            // 
-            this.tsmiCombineNamesPronouns.CheckOnClick = true;
-            this.tsmiCombineNamesPronouns.Name = "tsmiCombineNamesPronouns";
-            this.tsmiCombineNamesPronouns.Size = new System.Drawing.Size(240, 22);
-            this.tsmiCombineNamesPronouns.Text = "Combine Names and Pronouns";
-            this.tsmiCombineNamesPronouns.Click += new System.EventHandler(this.tsmiFileConfigure_Click);
-            // 
-            // StreamlinkToolStripMenuItem
-            // 
-            this.StreamlinkToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiResetStreamlinkPath});
-            this.StreamlinkToolStripMenuItem.Name = "StreamlinkToolStripMenuItem";
-            this.StreamlinkToolStripMenuItem.Size = new System.Drawing.Size(75, 20);
-            this.StreamlinkToolStripMenuItem.Text = "Streamlink";
-            // 
-            // tsmiResetStreamlinkPath
-            // 
-            this.tsmiResetStreamlinkPath.BackColor = System.Drawing.SystemColors.Control;
-            this.tsmiResetStreamlinkPath.Name = "tsmiResetStreamlinkPath";
-            this.tsmiResetStreamlinkPath.Size = new System.Drawing.Size(129, 22);
-            this.tsmiResetStreamlinkPath.Text = "Reset path";
-            this.tsmiResetStreamlinkPath.Click += new System.EventHandler(this.ResetStreamlinkPathToolStripMenuItem_Click);
             // 
             // ProgressBar1
             // 
@@ -358,6 +322,13 @@ namespace MossCast
             this.streamerGroupBox1.Size = new System.Drawing.Size(251, 142);
             this.streamerGroupBox1.TabIndex = 22;
             // 
+            // settingsToolStripMenuItem
+            // 
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.settingsToolStripMenuItem.Text = "Settings";
+            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -401,12 +372,8 @@ namespace MossCast
         private Button btnMoveResize;
         private MenuStrip menuStrip1;
         private ToolStripMenuItem fileToolStripMenuItem1;
-        private ToolStripMenuItem tsmiSelectAutocompleteFile;
         internal ToolStripMenuItem tsmiEditAutocompleteFile;
         internal ToolStripMenuItem tsmiOpenAppData;
-        internal ToolStripMenuItem StreamlinkToolStripMenuItem;
-        internal ToolStripMenuItem tsmiResetStreamlinkPath;
-        internal ToolStripMenuItem tsmiCombineNamesPronouns;
         internal ProgressBar ProgressBar1;
         private StreamerGroupBox streamerGroupBox1;
         private StreamerGroupBox streamerGroupBox2;
@@ -427,5 +394,6 @@ namespace MossCast
         private Button btnClearAll;
         private Button btnQuickLoad;
         private Button btnResetScore;
+        private ToolStripMenuItem settingsToolStripMenuItem;
     }
 }

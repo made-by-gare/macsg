@@ -46,7 +46,7 @@ namespace MossCast
             {
                 cbStreamer.SelectedItem = selectedItem;
             }
-            else
+            else if (IsActive())
             {
                 Deactivate();
             }

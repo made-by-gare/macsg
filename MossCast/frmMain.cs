@@ -24,7 +24,7 @@ namespace MossCast
         public List<StreamerInfo> streamerInfos;
         public List<string> streamers;
 
-        private string appdataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\MossCast";
+        public string appdataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\MossCast";
 
         public delegate void StartupNextInstanceEventHandler(object sender, StartupNextInstanceEventArgs e);
 
@@ -53,6 +53,7 @@ namespace MossCast
             if (Settings.Default.strPathToStreamerFile != "*.conf")
             {
                 Settings.Default.strPathToStreamerFile = appdataFolder + @"\streamerlist.conf";
+                Settings.Default.Save();
             }
 
             int x = Screen.PrimaryScreen.WorkingArea.Width - Width;
@@ -88,7 +89,6 @@ namespace MossCast
             setupStreamerSources();
 
             ToolStripStatusLabel1.Text = "Version " + GetType().Assembly.GetName().Version.ToString();
-            tsmiCombineNamesPronouns.Checked = Settings.Default.boolCombinedStreamerPronounFile;
         }
 
 
@@ -114,6 +114,7 @@ namespace MossCast
                 if (File.Exists(location))
                 {
                     Settings.Default.streamlinkDir = location;
+                    Settings.Default.Save();
                     return;
                 }
             }
@@ -143,6 +144,7 @@ namespace MossCast
                 if (fd.ShowDialog() == DialogResult.OK)
                 {
                     Settings.Default.streamlinkDir = fd.FileName.ToString();
+                    Settings.Default.Save();
                 }
                 else
                 {
@@ -261,25 +263,6 @@ namespace MossCast
         }
 
 
-        // Select file to use as autocomplete source
-        private void selectAutocompleteFile_Click(object sender, EventArgs e)
-        {
-
-            var fd = new OpenFileDialog();
-
-            fd.Title = "Select a file...";
-            fd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\MossCast";
-            fd.Filter = "Config files (*.conf)|*.conf";
-            fd.RestoreDirectory = true;
-
-            if (fd.ShowDialog() == DialogResult.OK)
-            {
-                Settings.Default.strPathToStreamerFile = fd.FileName;
-                setupStreamerSources();
-            }
-        }
-
-
         // Edit autcomplete file
         public void tsmiEditAutocompleteFile_Click(object sender, EventArgs e)
         {
@@ -288,31 +271,9 @@ namespace MossCast
         }
 
 
-        // Combined streamer name and pronouns file
-        public void tsmiFileConfigure_Click(object sender, EventArgs e)
-        {
-            Settings.Default.boolCombinedStreamerPronounFile = tsmiCombineNamesPronouns.Checked;
-        }
-
         private void tsmiOpenAppData_Click(object sender, EventArgs e)
         {
             Process.Start(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\MossCast");
-        }
-
-        private void tsmiEditStreamlinkConfig_Click(object sender, EventArgs e)
-        {
-            Process.Start("notepad.exe", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\streamlink\streamlinkrc");
-        }
-
-        private void ResetStreamlinkPathToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            int boolResetStreamlinkPath = (int)MessageBox.Show("Reset the path to Streamlink?  Current path: " + Constants.vbNewLine + Settings.Default.streamlinkDir, "Reset Streamlink path", MessageBoxButtons.YesNo);
-
-            if (boolResetStreamlinkPath == (int)DialogResult.Yes)
-            {
-                Settings.Default.streamlinkDir = "Not set";
-                setupStreamLinkCheck();
-            }
         }
 
         private void btnClearAll_Click(object sender, EventArgs e)
@@ -369,6 +330,12 @@ namespace MossCast
                 group.ResetScore();
             }
 
+        }
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = new frmEditSettings();
+            form.Show();
         }
     }
 }
