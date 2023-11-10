@@ -238,12 +238,16 @@ namespace MossCast
         public void genStream(string streamer, string quality, string windowTitle)
         {
 
+            var (width, height, xPos, yPos) = GetWindowLocation();
+            string vlcOptions = @"--config %AppData%\MossCast\vlcrc --no-qt-video-autoresize --no-qt-privacy-ask --video-x " + xPos + " --video-y " + yPos + " --width " + width + " --height " + height;
+            string cmdOptions = @"-a "" " + vlcOptions + @" -"" --title " + windowTitle + " --hls-live-edge 1 twitch.tv/" + streamer + " " + quality;
+
             var proc = new Process
             {
                 StartInfo = new ProcessStartInfo
                 {
                     FileName = "streamlink",
-                    Arguments = @"-a "" --config %AppData%\MossCast\vlcrc --no-qt-privacy-ask -"" " + " --title " + windowTitle + "  --hls-live-edge 1 twitch.tv/" + streamer + quality,
+                    Arguments = cmdOptions,
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     CreateNoWindow = true
@@ -320,8 +324,7 @@ namespace MossCast
                 return;
             }
 
-            string strQuality = " " + cbQuality.SelectedItem ?? "best" + " ";
-            genStream(streamer: streamerInfo.name, quality: strQuality, windowTitle: windowTitle);
+            genStream(streamer: streamerInfo.name, quality: (string)cbQuality.SelectedItem ?? "best", windowTitle: windowTitle);
         }
 
 
