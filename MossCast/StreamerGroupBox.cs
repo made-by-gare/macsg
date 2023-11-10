@@ -116,7 +116,7 @@ namespace MossCast
                 outputName = streamerInfo.displayName;
             }
 
-            if (My.MySettingsProperty.Settings.boolCombinedStreamerPronounFile)
+            if (Settings.Default.boolCombinedStreamerPronounFile)
             {
                 writeNameAndPronounsToFile(streamer: outputName, pronouns: pronouns, file: streamIdxStr);
             }
@@ -124,6 +124,28 @@ namespace MossCast
             {
                 writeNameToFile(streamer: outputName, file: streamIdxStr);
             }
+        }
+
+        public (int, int, int, int) GetWindowLocation()
+        {
+            var streamIdx = Array.IndexOf(My.MyProject.Forms.frmMain.streamerGroupBoxes, this);
+
+
+            var width = Settings.Default.streamerWindowWidth;
+            var height = Settings.Default.streamerWindowHeight;
+
+            int startXpos = Settings.Default.streamerWindowStartX;
+            int startYPos = Settings.Default.streamerWindowStartY;
+
+            if (streamIdx < 0)
+            {
+                return (width, height, startXpos, startYPos);
+            }
+
+            var xPos = startXpos + streamIdx % Settings.Default.streamerWindowMaxPerRow * width;
+            var yPos = startYPos + streamIdx / Settings.Default.streamerWindowMaxPerRow * height;
+
+            return (width, height, xPos, yPos);
         }
 
         public void ResetScore()
@@ -213,13 +235,21 @@ namespace MossCast
             return new List<string>();
         }
 
-        public void genStream(string streamer, string quality, string source, string windowTitle, string configFile, string racerNumber)
+        public void genStream(string streamer, string quality, string windowTitle)
         {
-            string runningProcess = "/c title " + windowTitle + " & " + source + @"-a "" --config %AppData%\MossCast\vlcrc --width 877 --height 518 -"" " + " --title " + racerNumber + " --hls-live-edge 1 twitch.tv/" + streamer + quality;
-            var strLivestreamerProcess = new ProcessStartInfo("cmd.exe", runningProcess);
 
-            strLivestreamerProcess.WindowStyle = ProcessWindowStyle.Hidden;
-            Process.Start(strLivestreamerProcess);
+            var proc = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = "streamlink",
+                    Arguments = @"-a "" --config %AppData%\MossCast\vlcrc --no-qt-privacy-ask -"" " + " --title " + windowTitle + "  --hls-live-edge 1 twitch.tv/" + streamer + quality,
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    CreateNoWindow = true
+                }
+            };
+            proc.Start();
         }
 
         public void writeNameToFile(string streamer, string file)
@@ -290,9 +320,8 @@ namespace MossCast
                 return;
             }
 
-            string strSource = "streamlink ";
             string strQuality = " " + cbQuality.SelectedItem ?? "best" + " ";
-            genStream(streamer: streamerInfo.name, quality: strQuality, source: strSource, windowTitle: "CMD" + windowTitle, configFile: idxStr, racerNumber: windowTitle);
+            genStream(streamer: streamerInfo.name, quality: strQuality, windowTitle: windowTitle);
         }
 
 

@@ -24,7 +24,7 @@ namespace MossCast
 
             Location = new Point(p.X + 10, p.Y + 10);
 
-            using (var srReader = new StreamReader(My.MySettingsProperty.Settings.strPathToStreamerFile))
+            using (var srReader = new StreamReader(Settings.Default.strPathToStreamerFile))
             {
                 string line;
                 line = srReader.ReadLine();
@@ -63,7 +63,7 @@ namespace MossCast
                 output.Add(String.Join(",", cells.ToArray()));
             }
 
-            File.WriteAllText(My.MySettingsProperty.Settings.strPathToStreamerFile, String.Join("\n", output).TrimEnd());
+            File.WriteAllText(Settings.Default.strPathToStreamerFile, String.Join("\n", output).TrimEnd());
             My.MyProject.Forms.frmMain.setupStreamerSources();
         }
 

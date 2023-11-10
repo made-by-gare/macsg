@@ -50,9 +50,9 @@ namespace MossCast
         public void frmMain_Load(object sender, EventArgs e)
         {
 
-            if (My.MySettingsProperty.Settings.strPathToStreamerFile != "*.conf")
+            if (Settings.Default.strPathToStreamerFile != "*.conf")
             {
-                My.MySettingsProperty.Settings.strPathToStreamerFile = appdataFolder + @"\streamerlist.conf";
+                Settings.Default.strPathToStreamerFile = appdataFolder + @"\streamerlist.conf";
             }
 
             int x = Screen.PrimaryScreen.WorkingArea.Width - Width;
@@ -64,9 +64,9 @@ namespace MossCast
                 Directory.CreateDirectory(appdataFolder);
             }
 
-            if (!File.Exists(My.MySettingsProperty.Settings.strPathToStreamerFile))
+            if (!File.Exists(Settings.Default.strPathToStreamerFile))
             {
-                File.Create(My.MySettingsProperty.Settings.strPathToStreamerFile).Close();
+                File.Create(Settings.Default.strPathToStreamerFile).Close();
             }
 
 
@@ -88,7 +88,7 @@ namespace MossCast
             setupStreamerSources();
 
             ToolStripStatusLabel1.Text = "Version " + GetType().Assembly.GetName().Version.ToString();
-            tsmiCombineNamesPronouns.Checked = My.MySettingsProperty.Settings.boolCombinedStreamerPronounFile;
+            tsmiCombineNamesPronouns.Checked = Settings.Default.boolCombinedStreamerPronounFile;
         }
 
 
@@ -96,7 +96,7 @@ namespace MossCast
         public void setupStreamLinkCheck()
         {
 
-            if (!string.IsNullOrEmpty(My.MySettingsProperty.Settings.streamlinkDir) && File.Exists(My.MySettingsProperty.Settings.streamlinkDir))
+            if (!string.IsNullOrEmpty(Settings.Default.streamlinkDir) && File.Exists(Settings.Default.streamlinkDir))
             {
                 return;
             }
@@ -113,7 +113,7 @@ namespace MossCast
             {
                 if (File.Exists(location))
                 {
-                    My.MySettingsProperty.Settings.streamlinkDir = location;
+                    Settings.Default.streamlinkDir = location;
                     return;
                 }
             }
@@ -142,7 +142,7 @@ namespace MossCast
 
                 if (fd.ShowDialog() == DialogResult.OK)
                 {
-                    My.MySettingsProperty.Settings.streamlinkDir = fd.FileName.ToString();
+                    Settings.Default.streamlinkDir = fd.FileName.ToString();
                 }
                 else
                 {
@@ -180,7 +180,7 @@ namespace MossCast
         public void setupStreamerSources()
         {
 
-            using (var reader = new StreamReader(My.MySettingsProperty.Settings.strPathToStreamerFile))
+            using (var reader = new StreamReader(Settings.Default.strPathToStreamerFile))
             {
                 streamers = new List<string>();
                 streamerInfos = new List<StreamerInfo>();
@@ -213,21 +213,7 @@ namespace MossCast
         // Move and resize all windows
         private void moveResize_Click(object sender, EventArgs e)
         {
-
-            if (string.IsNullOrEmpty(My.MySettingsProperty.Settings.strWindowSize))
-            {
-                My.MySettingsProperty.Settings.strWindowSize = Interaction.InputBox("You must define a window size for VLC - the default (for 1920x1080) is already entered below.  Enter the resolution as \"width height\".", "Define window size...", "882 520");
-                if (string.IsNullOrEmpty(My.MySettingsProperty.Settings.strWindowSize))
-                    My.MySettingsProperty.Settings.strWindowSize = "882 520";
-            }
-
-            var width = int.Parse(My.MySettingsProperty.Settings.strWindowSize.Split(' ')[0]);
-            var height = int.Parse(My.MySettingsProperty.Settings.strWindowSize.Split(' ')[1]);
-
-            int startXpos = 5;
-            int startYPos = 5;
             IntPtr hWnd;
-
 
             var idx = 1;
             foreach (var group in streamerGroupBoxes)
@@ -236,9 +222,7 @@ namespace MossCast
 
                 string arglpClassName = null;
                 string arglpWindowName = "Stream" + idxStr + " - VLC Media Player";
-
-                var xPos = startXpos + (idx - 1) % 4 * width;
-                var yPos = startYPos + (idx - 1) / 4 * height;
+                var (width, height, xPos, yPos) = group.GetWindowLocation();
                 hWnd = frmMain.FindWindow(arglpClassName, arglpWindowName);
                 MoveWindow(hWnd, xPos, yPos, width, height, true);
 
@@ -274,11 +258,6 @@ namespace MossCast
             {
                 group.Launch();
             }
-
-            if (!string.IsNullOrEmpty(My.MySettingsProperty.Settings.strWindowSize))
-            {
-                btnMoveResize.PerformClick();
-            }
         }
 
 
@@ -295,16 +274,11 @@ namespace MossCast
 
             if (fd.ShowDialog() == DialogResult.OK)
             {
-                My.MySettingsProperty.Settings.strPathToStreamerFile = fd.FileName;
+                Settings.Default.strPathToStreamerFile = fd.FileName;
                 setupStreamerSources();
             }
         }
 
-        // Change window size for CMDOW
-        private void tsmiChangeVLCWindowSize_Click(object sender, EventArgs e)
-        {
-            My.MySettingsProperty.Settings.strWindowSize = Interaction.InputBox("Define window size for VLC - enter the resolution as \"width height\".  Recommended sizes:" + Constants.vbCrLf + "1920x1080: 882x520" + Constants.vbCrLf + "1440x900: 642x385", "Define window size...", "882 520");
-        }
 
         // Edit autcomplete file
         public void tsmiEditAutocompleteFile_Click(object sender, EventArgs e)
@@ -317,7 +291,7 @@ namespace MossCast
         // Combined streamer name and pronouns file
         public void tsmiFileConfigure_Click(object sender, EventArgs e)
         {
-            My.MySettingsProperty.Settings.boolCombinedStreamerPronounFile = tsmiCombineNamesPronouns.Checked;
+            Settings.Default.boolCombinedStreamerPronounFile = tsmiCombineNamesPronouns.Checked;
         }
 
         private void tsmiOpenAppData_Click(object sender, EventArgs e)
@@ -332,11 +306,11 @@ namespace MossCast
 
         private void ResetStreamlinkPathToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int boolResetStreamlinkPath = (int)MessageBox.Show("Reset the path to Streamlink?  Current path: " + Constants.vbNewLine + My.MySettingsProperty.Settings.streamlinkDir, "Reset Streamlink path", MessageBoxButtons.YesNo);
+            int boolResetStreamlinkPath = (int)MessageBox.Show("Reset the path to Streamlink?  Current path: " + Constants.vbNewLine + Settings.Default.streamlinkDir, "Reset Streamlink path", MessageBoxButtons.YesNo);
 
             if (boolResetStreamlinkPath == (int)DialogResult.Yes)
             {
-                My.MySettingsProperty.Settings.streamlinkDir = "Not set";
+                Settings.Default.streamlinkDir = "Not set";
                 setupStreamLinkCheck();
             }
         }

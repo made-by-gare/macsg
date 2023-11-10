@@ -43,7 +43,6 @@ namespace MossCast
             this.fileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSelectAutocompleteFile = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiEditAutocompleteFile = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiChangeVLCWindowSize = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiOpenAppData = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiCombineNamesPronouns = new System.Windows.Forms.ToolStripMenuItem();
             this.StreamlinkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -53,6 +52,7 @@ namespace MossCast
             this.ToolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.StatusStrip1 = new System.Windows.Forms.StatusStrip();
             this.groupBoxControls = new System.Windows.Forms.GroupBox();
+            this.btnResetScore = new System.Windows.Forms.Button();
             this.btnQuickLoad = new System.Windows.Forms.Button();
             this.btnClearAll = new System.Windows.Forms.Button();
             this.streamerGroupBox12 = new MossCast.StreamerGroupBox();
@@ -67,7 +67,6 @@ namespace MossCast
             this.streamerGroupBox3 = new MossCast.StreamerGroupBox();
             this.streamerGroupBox2 = new MossCast.StreamerGroupBox();
             this.streamerGroupBox1 = new MossCast.StreamerGroupBox();
-            this.btnResetScore = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.StatusStrip1.SuspendLayout();
             this.groupBoxControls.SuspendLayout();
@@ -123,7 +122,6 @@ namespace MossCast
             this.fileToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiSelectAutocompleteFile,
             this.tsmiEditAutocompleteFile,
-            this.tsmiChangeVLCWindowSize,
             this.tsmiOpenAppData,
             this.tsmiCombineNamesPronouns});
             this.fileToolStripMenuItem1.Name = "fileToolStripMenuItem1";
@@ -143,13 +141,6 @@ namespace MossCast
             this.tsmiEditAutocompleteFile.Size = new System.Drawing.Size(240, 22);
             this.tsmiEditAutocompleteFile.Text = "Edit Streamerlist File";
             this.tsmiEditAutocompleteFile.Click += new System.EventHandler(this.tsmiEditAutocompleteFile_Click);
-            // 
-            // tsmiChangeVLCWindowSize
-            // 
-            this.tsmiChangeVLCWindowSize.Name = "tsmiChangeVLCWindowSize";
-            this.tsmiChangeVLCWindowSize.Size = new System.Drawing.Size(240, 22);
-            this.tsmiChangeVLCWindowSize.Text = "Change window size...";
-            this.tsmiChangeVLCWindowSize.Click += new System.EventHandler(this.tsmiChangeVLCWindowSize_Click);
             // 
             // tsmiOpenAppData
             // 
@@ -228,6 +219,16 @@ namespace MossCast
             this.groupBoxControls.TabIndex = 34;
             this.groupBoxControls.TabStop = false;
             this.groupBoxControls.Text = "Controls";
+            // 
+            // btnResetScore
+            // 
+            this.btnResetScore.Location = new System.Drawing.Point(5, 191);
+            this.btnResetScore.Name = "btnResetScore";
+            this.btnResetScore.Size = new System.Drawing.Size(101, 29);
+            this.btnResetScore.TabIndex = 20;
+            this.btnResetScore.Text = "Reset Scores";
+            this.btnResetScore.UseVisualStyleBackColor = true;
+            this.btnResetScore.Click += new System.EventHandler(this.btnResetScore_Click);
             // 
             // btnQuickLoad
             // 
@@ -357,16 +358,6 @@ namespace MossCast
             this.streamerGroupBox1.Size = new System.Drawing.Size(251, 142);
             this.streamerGroupBox1.TabIndex = 22;
             // 
-            // btnResetScore
-            // 
-            this.btnResetScore.Location = new System.Drawing.Point(5, 191);
-            this.btnResetScore.Name = "btnResetScore";
-            this.btnResetScore.Size = new System.Drawing.Size(101, 29);
-            this.btnResetScore.TabIndex = 20;
-            this.btnResetScore.Text = "Reset Scores";
-            this.btnResetScore.UseVisualStyleBackColor = true;
-            this.btnResetScore.Click += new System.EventHandler(this.btnResetScore_Click);
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -412,7 +403,6 @@ namespace MossCast
         private ToolStripMenuItem fileToolStripMenuItem1;
         private ToolStripMenuItem tsmiSelectAutocompleteFile;
         internal ToolStripMenuItem tsmiEditAutocompleteFile;
-        internal ToolStripMenuItem tsmiChangeVLCWindowSize;
         internal ToolStripMenuItem tsmiOpenAppData;
         internal ToolStripMenuItem StreamlinkToolStripMenuItem;
         internal ToolStripMenuItem tsmiResetStreamlinkPath;
