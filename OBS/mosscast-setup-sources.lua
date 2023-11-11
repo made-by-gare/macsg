@@ -9,13 +9,18 @@ local SOURCE_SUFFIX_SCORE = "Score"
 
 local mosscast_num_streams = 1
 local mosscast_dir = ""
+local mosscast_scene_add_capture = false
+local mosscast_scene_add_name = false
+local mosscast_scene_add_pronouns = false
+local mosscast_scene_add_score = false
+
 
 local function isempty(s)
     return s == nil or s == ''
 end
 
 
-local function get_or_create_source(name, type, settings)
+local function get_or_create_source(name, type)
     local source = SOURCES[name]
     if source == nil then
         print(string.format("Failed to find source (%s) in cache", name))
@@ -24,7 +29,7 @@ local function get_or_create_source(name, type, settings)
 
     if source == nil then
         print(string.format("Failed to find source (%s). Creating.", name))
-        source = obs.obs_source_create(type, name, settings, nil)
+        source = obs.obs_source_create(type, name, nil, nil)
     end
 
     if SOURCES[name] == nil then
@@ -65,7 +70,6 @@ local function create_or_update_text_source(name, filepath)
     obs.obs_data_set_int(settings, "outline_size", 2)
 
     local source = get_or_create_source(name, "text_gdiplus_v2", settings)
-    print(tostring(source))
     obs.obs_source_reset_settings(source, settings)
 
     obs.obs_data_release(settings)
@@ -114,6 +118,17 @@ local function add_source(scene, name)
     obs.obs_scene_add(scene, source)
 end
 
+local function add_source_for_streams(scene, suffix, should_run)
+    if not should_run then
+        return
+    end
+
+    for idx = mosscast_num_streams, 1, -1 do
+        local prefix = string.format(SOURCE_PREFIX, idx)
+        add_source(scene, prefix .. suffix)
+    end
+end
+
 local function mosscast_add(props, property, data)
     local scene_source = obs.obs_frontend_get_current_scene()
     if scene_source == nil then
@@ -124,16 +139,10 @@ local function mosscast_add(props, property, data)
         return
     end
 
-    for idx = mosscast_num_streams, 1, -1 do
-        local prefix = string.format(SOURCE_PREFIX, idx)
-        add_source(scene, prefix .. SOURCE_SUFFIX_CAPTURE)
-    end
-    for idx = mosscast_num_streams, 1, -1 do
-        local prefix = string.format(SOURCE_PREFIX, idx)
-        add_source(scene, prefix .. SOURCE_SUFFIX_SCORE)
-        add_source(scene, prefix .. SOURCE_SUFFIX_PRONOUNS)
-        add_source(scene, prefix .. SOURCE_SUFFIX_NAME)
-    end
+    add_source_for_streams(scene, SOURCE_SUFFIX_CAPTURE, mosscast_scene_add_capture)
+    add_source_for_streams(scene, SOURCE_SUFFIX_NAME, mosscast_scene_add_name)
+    add_source_for_streams(scene, SOURCE_SUFFIX_PRONOUNS, mosscast_scene_add_pronouns)
+    add_source_for_streams(scene, SOURCE_SUFFIX_SCORE, mosscast_scene_add_score)
 end
 
 local function preload_source(name)
@@ -144,23 +153,42 @@ end
 
 function script_properties()
     local props = obs.obs_properties_create()
+
+    obs.obs_properties_add_int_slider(props, "mosscast_num_streams", "Number of Streams", 1, 12, 1)
+
+    local source_props = obs.obs_properties_create()
+    obs.obs_properties_add_group(props, "mosscast_source_settings", "Source Settings", obs.OBS_GROUP_NORMAL, source_props)
     obs.obs_properties_add_path(
-        props,
+        source_props,
         "mosscast_dir",
         "MossCast Directory",
         obs.OBS_PATH_DIRECTORY,
         "",
         nil
     )
-    obs.obs_properties_add_int_slider(props, "mosscast_num_streams", "Number of Streams", 1, 12, 1)
-    obs.obs_properties_add_button(props, "mosscast_sync", "Create/Update Sources", mosscast_sync)
-    obs.obs_properties_add_button(props, "mosscast_add", "Add to Current Scene", mosscast_add)
+    obs.obs_properties_add_button(source_props, "mosscast_sync", "Create/Update Sources", mosscast_sync)
+
+    local scene_props = obs.obs_properties_create()
+    obs.obs_properties_add_group(props, "mosscast_scene_settings", "Scene Settings", obs.OBS_GROUP_NORMAL, scene_props)
+
+    obs.obs_properties_add_bool(scene_props, "mosscast_scene_add_capture", "Add Capture")
+    obs.obs_properties_add_bool(scene_props, "mosscast_scene_add_name", "Add Name")
+    obs.obs_properties_add_bool(scene_props, "mosscast_scene_add_pronouns", "Add Pronouns")
+    obs.obs_properties_add_bool(scene_props, "mosscast_scene_add_score", "Add Score")
+
+    obs.obs_properties_add_button(scene_props, "mosscast_add", "Add to Current Scene", mosscast_add)
+
     return props
 end
 
 function script_update(settings)
     mosscast_dir = obs.obs_data_get_string(settings, "mosscast_dir")
     mosscast_num_streams = obs.obs_data_get_int(settings, "mosscast_num_streams")
+    mosscast_scene_add_capture = obs.obs_data_get_bool(settings, "mosscast_scene_add_capture")
+    mosscast_scene_add_name = obs.obs_data_get_bool(settings, "mosscast_scene_add_name")
+    mosscast_scene_add_pronouns = obs.obs_data_get_bool(settings, "mosscast_scene_add_pronouns")
+    mosscast_scene_add_score = obs.obs_data_get_bool(settings, "mosscast_scene_add_score")
+
 
     for idx = 1, mosscast_num_streams do
         local prefix = string.format(SOURCE_PREFIX, idx)
