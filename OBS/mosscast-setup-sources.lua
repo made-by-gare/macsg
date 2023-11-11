@@ -45,7 +45,7 @@ local function create_or_update_game_capture_source(name, idx)
     obs.obs_data_set_string(settings, "window",
         string.format("Stream%02d - VLC media player:Qt5QWindowIcon:vlc.exe", idx))
 
-    local source = get_or_create_source(name, "game_capture", settings)
+    local source = get_or_create_source(name, "game_capture")
     obs.obs_source_reset_settings(source, settings)
 
     obs.obs_data_release(settings)
@@ -69,7 +69,7 @@ local function create_or_update_text_source(name, filepath)
     obs.obs_data_set_int(settings, "outline_color", 4278190080)
     obs.obs_data_set_int(settings, "outline_size", 2)
 
-    local source = get_or_create_source(name, "text_gdiplus_v2", settings)
+    local source = get_or_create_source(name, "text_gdiplus_v2")
     obs.obs_source_reset_settings(source, settings)
 
     obs.obs_data_release(settings)
