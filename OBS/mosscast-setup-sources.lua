@@ -1,3 +1,4 @@
+---@diagnostic disable-next-line: undefined-global
 local obs = obslua
 
 local SOURCES = {}
@@ -151,6 +152,7 @@ end
 
 -- OBS Lifecycle Functions
 
+---@diagnostic disable-next-line: lowercase-global
 function script_properties()
     local props = obs.obs_properties_create()
 
@@ -181,6 +183,7 @@ function script_properties()
     return props
 end
 
+---@diagnostic disable-next-line: lowercase-global
 function script_update(settings)
     mosscast_dir = obs.obs_data_get_string(settings, "mosscast_dir")
     mosscast_num_streams = obs.obs_data_get_int(settings, "mosscast_num_streams")
@@ -199,6 +202,14 @@ function script_update(settings)
     end
 end
 
+---@diagnostic disable-next-line: lowercase-global
+function script_defaults(settings)
+    obs.obs_data_set_default_int(settings, "mosscast_num_streams", 4)
+    obs.obs_data_set_default_bool(settings, "mosscast_scene_add_capture", true)
+    obs.obs_data_set_default_bool(settings, "mosscast_scene_add_name", true)
+end
+
+---@diagnostic disable-next-line: lowercase-global
 function script_unload()
     for key, value in pairs(SOURCES) do
         if value ~= nil then
