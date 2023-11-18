@@ -66,14 +66,24 @@ namespace MossCast
             }
         }
 
-        public void Activate()
+        public StreamerInfo GetSelectedStreamerInfo()
         {
             var idx = cbStreamer.SelectedIndex;
-            if (idx < 0)
+            if (idx < 0 || idx >= My.MyProject.Forms.frmMain.streamerInfos.Count)
+            {
+                return null;
+            }
+
+            return My.MyProject.Forms.frmMain.streamerInfos[idx];
+        }
+
+        public void Activate()
+        {
+            var streamerInfo = GetSelectedStreamerInfo();
+            if (streamerInfo is null)
             {
                 return;
             }
-
 
             var streamIdx = Array.IndexOf(My.MyProject.Forms.frmMain.streamerGroupBoxes, this);
             if (streamIdx < 0)
@@ -82,7 +92,6 @@ namespace MossCast
             }
 
             string streamIdxStr = (streamIdx + 1).ToString("00");
-            var streamerInfo = My.MyProject.Forms.frmMain.streamerInfos[idx];
 
 
             var qualities = getStreamQuality(streamerInfo.name);
@@ -107,6 +116,11 @@ namespace MossCast
             ResetScore();
             updScore.Enabled = true;
 
+            WriteFiles(streamIdxStr, streamerInfo);
+        }
+
+        public void WriteFiles(string streamIdxStr, StreamerInfo streamerInfo)
+        {
             var pronouns = streamerInfo.pronouns ?? "";
             writePronounsToFile(pronouns: pronouns, file: streamIdxStr);
 
@@ -116,6 +130,22 @@ namespace MossCast
                 outputName = streamerInfo.displayName;
             }
 
+            if (Settings.Default.boolCombinedStreamerPronounFile)
+            {
+                writeNameAndPronounsToFile(streamer: outputName, pronouns: pronouns, file: streamIdxStr);
+            }
+            else
+            {
+                writeNameToFile(streamer: outputName, file: streamIdxStr);
+            }
+        }
+
+        public void WritePlaceholders(string streamIdxStr)
+        {
+            var pronouns = "They / Them";
+            writePronounsToFile(pronouns: pronouns, file: streamIdxStr);
+
+            var outputName = "Placeholder " + streamIdxStr;
             if (Settings.Default.boolCombinedStreamerPronounFile)
             {
                 writeNameAndPronounsToFile(streamer: outputName, pronouns: pronouns, file: streamIdxStr);
@@ -313,12 +343,12 @@ namespace MossCast
                 return;
             }
 
-            if (cbStreamer.SelectedIndex < 0 || cbStreamer.SelectedIndex > My.MyProject.Forms.frmMain.streamerInfos.Count)
+            var streamerInfo = GetSelectedStreamerInfo();
+            if (streamerInfo == null)
             {
                 return;
             }
 
-            var streamerInfo = My.MyProject.Forms.frmMain.streamerInfos[cbStreamer.SelectedIndex];
             if (string.IsNullOrEmpty(streamerInfo.name))
             {
                 return;

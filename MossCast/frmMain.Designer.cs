@@ -43,6 +43,7 @@ namespace MossCast
             this.fileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiEditAutocompleteFile = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiOpenAppData = new System.Windows.Forms.ToolStripMenuItem();
+            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ProgressBar1 = new System.Windows.Forms.ProgressBar();
             this.statusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.ToolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -63,10 +64,13 @@ namespace MossCast
             this.streamerGroupBox3 = new MossCast.StreamerGroupBox();
             this.streamerGroupBox2 = new MossCast.StreamerGroupBox();
             this.streamerGroupBox1 = new MossCast.StreamerGroupBox();
-            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.groupBoxFileControls = new System.Windows.Forms.GroupBox();
+            this.buttonRefreshFiles = new System.Windows.Forms.Button();
+            this.buttonFilePlaceholders = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.StatusStrip1.SuspendLayout();
             this.groupBoxControls.SuspendLayout();
+            this.groupBoxFileControls.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnGenAll
@@ -137,6 +141,13 @@ namespace MossCast
             this.tsmiOpenAppData.Text = "Open AppData Folder";
             this.tsmiOpenAppData.Click += new System.EventHandler(this.tsmiOpenAppData_Click);
             // 
+            // settingsToolStripMenuItem
+            // 
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.settingsToolStripMenuItem.Text = "Settings";
+            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
+            // 
             // ProgressBar1
             // 
             this.ProgressBar1.Location = new System.Drawing.Point(14, 22);
@@ -179,10 +190,10 @@ namespace MossCast
             this.groupBoxControls.Location = new System.Drawing.Point(1040, 36);
             this.groupBoxControls.Name = "groupBoxControls";
             this.groupBoxControls.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBoxControls.Size = new System.Drawing.Size(113, 418);
+            this.groupBoxControls.Size = new System.Drawing.Size(113, 227);
             this.groupBoxControls.TabIndex = 34;
             this.groupBoxControls.TabStop = false;
-            this.groupBoxControls.Text = "Controls";
+            this.groupBoxControls.Text = "Stream Controls";
             // 
             // btnResetScore
             // 
@@ -322,18 +333,43 @@ namespace MossCast
             this.streamerGroupBox1.Size = new System.Drawing.Size(251, 142);
             this.streamerGroupBox1.TabIndex = 22;
             // 
-            // settingsToolStripMenuItem
+            // groupBoxFileControls
             // 
-            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.settingsToolStripMenuItem.Text = "Settings";
-            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
+            this.groupBoxFileControls.Controls.Add(this.buttonFilePlaceholders);
+            this.groupBoxFileControls.Controls.Add(this.buttonRefreshFiles);
+            this.groupBoxFileControls.Location = new System.Drawing.Point(1040, 269);
+            this.groupBoxFileControls.Name = "groupBoxFileControls";
+            this.groupBoxFileControls.Size = new System.Drawing.Size(113, 90);
+            this.groupBoxFileControls.TabIndex = 35;
+            this.groupBoxFileControls.TabStop = false;
+            this.groupBoxFileControls.Text = "File Controls";
+            // 
+            // buttonRefreshFiles
+            // 
+            this.buttonRefreshFiles.Location = new System.Drawing.Point(6, 19);
+            this.buttonRefreshFiles.Name = "buttonRefreshFiles";
+            this.buttonRefreshFiles.Size = new System.Drawing.Size(101, 29);
+            this.buttonRefreshFiles.TabIndex = 21;
+            this.buttonRefreshFiles.Text = "Refresh Files";
+            this.buttonRefreshFiles.UseVisualStyleBackColor = true;
+            this.buttonRefreshFiles.Click += new System.EventHandler(this.buttonRefreshFiles_Click);
+            // 
+            // buttonFilePlaceholders
+            // 
+            this.buttonFilePlaceholders.Location = new System.Drawing.Point(6, 54);
+            this.buttonFilePlaceholders.Name = "buttonFilePlaceholders";
+            this.buttonFilePlaceholders.Size = new System.Drawing.Size(101, 29);
+            this.buttonFilePlaceholders.TabIndex = 22;
+            this.buttonFilePlaceholders.Text = "Placeholders";
+            this.buttonFilePlaceholders.UseVisualStyleBackColor = true;
+            this.buttonFilePlaceholders.Click += new System.EventHandler(this.buttonFilePlaceholders_Click);
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1164, 486);
+            this.Controls.Add(this.groupBoxFileControls);
             this.Controls.Add(this.groupBoxControls);
             this.Controls.Add(this.streamerGroupBox12);
             this.Controls.Add(this.streamerGroupBox11);
@@ -362,6 +398,7 @@ namespace MossCast
             this.StatusStrip1.ResumeLayout(false);
             this.StatusStrip1.PerformLayout();
             this.groupBoxControls.ResumeLayout(false);
+            this.groupBoxFileControls.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -395,5 +432,8 @@ namespace MossCast
         private Button btnQuickLoad;
         private Button btnResetScore;
         private ToolStripMenuItem settingsToolStripMenuItem;
+        private GroupBox groupBoxFileControls;
+        private Button buttonFilePlaceholders;
+        private Button buttonRefreshFiles;
     }
 }

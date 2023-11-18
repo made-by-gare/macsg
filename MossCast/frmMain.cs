@@ -337,5 +337,34 @@ namespace MossCast
             var form = new frmEditSettings();
             form.Show();
         }
+
+        private void buttonRefreshFiles_Click(object sender, EventArgs e)
+        {
+
+            var streamIdx = 0;
+            foreach (var group in streamerGroupBoxes)
+            {
+                string streamIdxStr = (streamIdx + 1).ToString("00");
+                var streamerInfo = group.GetSelectedStreamerInfo();
+                if (streamerInfo is null)
+                {
+                    continue;
+                }
+                group.WriteFiles(streamIdxStr, streamerInfo);
+                streamIdx += 1;
+            }
+        }
+
+        private void buttonFilePlaceholders_Click(object sender, EventArgs e)
+        {
+            var streamIdx = 0;
+            foreach (var group in streamerGroupBoxes)
+            {
+                string streamIdxStr = (streamIdx + 1).ToString("00");
+                group.WritePlaceholders(streamIdxStr);
+                streamIdx += 1;
+
+            }
+        }
     }
 }
