@@ -269,7 +269,7 @@ namespace MossCast
         {
 
             var (width, height, xPos, yPos) = GetWindowLocation();
-            string vlcOptions = @"--config %AppData%\MossCast\vlcrc --no-qt-video-autoresize --no-qt-privacy-ask --video-x " + xPos + " --video-y " + yPos + " --width " + width + " --height " + height;
+            string vlcOptions = @"--config " + My.MyProject.Forms.frmMain.appdataFolder + "/vlcrc --no-qt-video-autoresize --no-qt-privacy-ask --video-x " + xPos + " --video-y " + yPos + " --width " + width + " --height " + height;
             string cmdOptions = @"-a "" " + vlcOptions + @" -"" --title " + windowTitle + " --hls-live-edge 1 twitch.tv/" + streamer + " " + quality;
 
             var proc = new Process
